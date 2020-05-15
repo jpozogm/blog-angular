@@ -1,0 +1,8 @@
+.PostCard {
+    border: 5px solid red;
+    padding: 0 10px;
+    
+    & + &{
+        padding-top: 50px;
+    }
+}

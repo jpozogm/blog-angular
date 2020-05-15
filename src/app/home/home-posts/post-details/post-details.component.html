@@ -1,0 +1,22 @@
+<p>post-details works!</p>
+
+
+
+{{post.postAuthorName }}
+{{post.postAuthorName }}
+{{post.postAuthorNickName}}
+
+-----------
+{{post.postTittle}}
+{{post.postContent}}
+<br>
+------COMENTARIOS -----
+
+<div *ngFor="let comment of post.postComments">
+
+    {{comment.commentAuthorNickName}}
+    <br>
+    {{comment.commentContent}}
+</div>
+
+

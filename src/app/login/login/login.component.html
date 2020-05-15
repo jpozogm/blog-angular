@@ -1,0 +1,27 @@
+
+<form [formGroup]="signInLogin">
+    <label for="username">Username:</label>
+    <input id="username" type="text" formControlName="username">
+
+    <label for="password">Password:</label>
+    <input id="password" type="password" formControlName="password">
+    <button (click)="signIn()" [disabled]="!signInLogin.valid">Sign In</button>
+</form>
+
+<br>
+
+<form [formGroup]="signUpLogin"> 
+    <label for="Newusername">Username:</label>
+    <input id="Newusername" type="text" formControlName="username">
+
+    <label for="Newpassword">Password:</label>
+    <input id="Newpassword" type="password" formControlName="password">
+
+    <label for="role">Role:</label>
+    <select id="role" formControlName="role">
+        <option selected value="publisher">Publisher</option>
+        <option value="admin">Admin</option>
+    </select>
+
+    <button (click)="signUp()" [disabled]="!signUpLogin.valid">Sign Up</button>
+</form>
