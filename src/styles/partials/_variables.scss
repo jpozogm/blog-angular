@@ -1,0 +1,36 @@
+@import 'rem';
+@import 'root';
+
+//Color
+$primary-color: var(--blue);
+
+//Font
+$font-size-xl: rem(25px);
+$font-size-l: rem(19px);
+$font-size: rem(16px);
+$font-size-sm: rem(14px);
+$font-size-xs: rem(10px);
+
+$font-size: $font-size-sm;
+
+
+//Title
+$title: (
+    'h1': 'rem(36px)',
+    'h2': 'rem(30px)',
+    'h3': 'rem(26px)',
+    'h4': 'rem(22px)',
+    'h5': 'rem(20px)',
+    'h6': 'rem(18px)',
+);
+
+
+$box-shadow: 0px 2px 2px var(--black);
+
+$border-blue: rem(1px) solid var(--blue);
+$border-blue-sea: rem(1px) solid var(--blue-sea);
+$border-red: rem(1px) solid var(--red);
+$border-green: rem(1px) solid var(--green);
+
+$border-radius: rem(5px);
+

@@ -5,23 +5,68 @@
 
     <label for="password">Password:</label>
     <input id="password" type="password" formControlName="password">
-    <button (click)="signIn()" [disabled]="!signInLogin.valid">Sign In</button>
+
+    <button (click)="signIn(signInLogin.value)" [disabled]="!signInLogin.valid">Sign In</button>
 </form>
 
 <br>
 
 <form [formGroup]="signUpLogin"> 
-    <label for="Newusername">Username:</label>
-    <input id="Newusername" type="text" formControlName="username">
+    <label for="newUserName">Username:</label>
+    <input id="newUserName" type="text" formControlName="user"> 
 
-    <label for="Newpassword">Password:</label>
-    <input id="Newpassword" type="password" formControlName="password">
+    <div *ngIf="signUpLogin.get('user').touched">
+        <span *ngIf="signUpLogin.get('user').hasError('required')">
+            Username is required
+        </span>
+
+        <span *ngIf="signUpLogin.get('user').hasError('startWithNumber')">
+            Username can´t start with number
+        </span>
+
+        <span *ngIf="signUpLogin.get('user').hasError('userTaken')">
+            Username is taken
+        </span>
+    </div>
+
+    <label for="newPassword">Password:</label>
+    <input id="newPassword" type="password" formControlName="password">
+
+    <div *ngIf="signUpLogin.get('password').touched">
+        <span *ngIf="signUpLogin.get('password').hasError('required')">
+            Password is required
+        </span>
+
+        <span *ngIf="signUpLogin.get('password').hasError('minLength')">
+            Min 4 characters
+        </span>
+    </div>
+
+    <label for="repeatPassword">Repeat your password:</label>
+    <input id="repeatPassword" type="password" formControlName="repeatPassword">
+
+    <div *ngIf="signUpLogin.get('repeatPassword').touched && !signUpLogin.get('repeatPassword').valid">
+        <span *ngIf="signUpLogin.get('repeatPassword').hasError('required')">
+            Repeat Password is required
+        </span>
+
+        <span *ngIf="signUpLogin.get('password').hasError('compareValidator')">
+            Repeat Password must be equal to Password
+        </span>
+    </div>
+
 
     <label for="role">Role:</label>
     <select id="role" formControlName="role">
         <option selected value="publisher">Publisher</option>
         <option value="admin">Admin</option>
     </select>
+
+    <div *ngIf="signUpLogin.get('role').touched && !signUpLogin.get('role').valid">
+        <span *ngIf="signUpLogin.get('role').hasError('required')">
+            Rol is required
+        </span>
+    </div>
 
     <button (click)="signUp()" [disabled]="!signUpLogin.valid">Sign Up</button>
 </form>

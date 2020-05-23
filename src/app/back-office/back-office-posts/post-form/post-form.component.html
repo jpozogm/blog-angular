@@ -1,0 +1,25 @@
+
+<div class="border">
+    <div class="card__body">
+        <p class="card__author-name">{{post?.postAuthorName }}</p>
+        <p class="card__author-nick-name">{{post?.postAuthorNickName}}</p>
+    </div>  
+
+    <form [formGroup]="editPost">
+        <label for="postTittle">Título del post</label>
+        <input id="postTittle" type="text" formControlName="postTittle">
+
+        <label for="postContent">Contenido del post</label>
+        <!-- <input id="postContent" type="text" formControlName="postContent"> -->
+        <textarea id="postContent" type="text" formControlName="postContent">{{post?.postContent}}</textarea>
+
+        <br>
+
+        <div><p>{{error}}</p></div>
+
+        <br> 
+        
+        <button (click)="updatePost(editPost.value)">Save</button>
+        <button (click)="resetPost()">Reset</button>
+    </form>
+</div>

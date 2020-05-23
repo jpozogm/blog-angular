@@ -1,0 +1,61 @@
+@import '_root';
+
+.flex {
+    display: flex;
+}
+  
+  
+.w-100 {
+    width: 100%;
+}
+  
+  
+.displayNone {
+    display: none;
+}
+  
+.hidden {
+    display: none;
+}
+  
+  
+.more {
+    &-blue {
+        &::after {
+            content: "...";
+            color: var(--blue);
+        }
+    }
+  
+    &-white {
+        &::after {
+            content: "...";
+            color: var(--white);
+        }
+    }
+  }
+  
+  //FadeIn 
+.fadeInSlow {
+    @extend %fadeInSlow;
+}
+  
+.fadeIn {
+    @extend %fadeIn;
+}
+  
+.fadeInFast {
+    @extend %fadeInFast;
+}
+  
+.opacityIn {
+    @extend %opacityIn;
+}
+  
+.fadeOut {
+    @extend %fadeOut;
+}
+
+.disabled {
+    opacity: 0.5
+}

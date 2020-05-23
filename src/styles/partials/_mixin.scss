@@ -1,0 +1,85 @@
+@mixin hover-color-transition {
+    -webkit-transition: background-color 300ms linear;
+    -ms-transition: background-color 300ms linear;
+    transition: background-color 300ms linear;
+}
+  
+@mixin hover-transform-scale {
+    transform: scale(1.025);
+    transition: transform 0.25s;
+}
+  
+  
+@mixin hover-background {
+    color: var(--blue);
+    border: 1px solid var(--blue);
+}
+  
+  
+//BTN
+@mixin primary-btn {
+    display: inline-block;
+    width: 100%;
+    height: rem(52px);
+    padding: 12px 14px;
+    margin: 25px 0;
+    background-color: $primary-color;
+    border: $border-blue;
+    border-radius: $border-radius;
+    cursor: pointer;
+    @include hover-color-transition;
+  
+    &:hover {
+        opacity: 0.5;
+        @include hover-color-transition;
+    }
+}
+
+  
+  
+@mixin custom-btn($color) {
+    display: inline-block;
+    width: 100%;
+    height: rem(52px);
+    padding: 12px 14px;
+    margin: 30px 0;
+    background-color: $color;
+    border: $white-border;
+    border-radius: $border-radius;
+    cursor: pointer;
+    @include hover-color-transition;
+  
+    &:hover {
+      background-color: lighten($color, 15%);
+      border: $color;
+      @include hover-color-transition;
+    }
+}
+  
+  
+// Forms
+@mixin valid-form {
+    border-top: $border-green;
+    border-left: 3px solid var(--green);
+    border-bottom: $border-green;
+    border-right: $border-green;
+}
+  
+@mixin invalid-form {
+    border-top: $border-red;
+    border-left: 3px solid var(--red);
+    border-bottom: $border-red;
+    border-right: $border-red; 
+}
+  
+@mixin valid-input-form-group {
+    border-top: $border-blue-sea;
+    border-bottom: $border-blue-sea;
+    border-right: $border-blue-sea;
+}
+  
+@mixin invalid-input-form-group {
+    border-top: $border-red;
+    border-bottom: $border-red;
+    border-right: $border-red;
+}

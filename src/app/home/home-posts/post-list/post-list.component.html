@@ -1,3 +1,1 @@
-
-
-<app-post-card *ngFor="let post of publicPosts$ let i = index" [post]="post"></app-post-card>
+<app-post-card *ngFor="let post of ( publicPosts$ | async ) let i = index" [post]="post"></app-post-card>

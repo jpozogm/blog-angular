@@ -1,22 +1,28 @@
-<p>post-details works!</p>
 
 
+<div class="">
 
-{{post.postAuthorName }}
-{{post.postAuthorName }}
-{{post.postAuthorNickName}}
+    <div class="border">
+        <div>
+            <p>{{post?.postDate | date: 'd/MMM/yyyy, h:mm a'}}</p>
+            <p>{{post?.postAuthorName }}</p>
+        </div>
 
------------
-{{post.postTittle}}
-{{post.postContent}}
-<br>
-------COMENTARIOS -----
+        <div>
+            <h2>{{post?.postTittle | uppercase}}</h2>
+            <p>{{post?.postContent}}</p>
+        </div>  
+    </div>
 
-<div *ngFor="let comment of post.postComments">
 
-    {{comment.commentAuthorNickName}}
-    <br>
-    {{comment.commentContent}}
+    <div *ngFor="let comment of post?.postComments">
+
+        <hr> 
+        {{comment.commentAuthorNickName}}
+        <br>
+        {{comment.commentContent}}
+    </div>
+
+    <button (click)="backHome()">Back Home</button>
+
 </div>
-
-

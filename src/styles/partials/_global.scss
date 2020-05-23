@@ -1,0 +1,67 @@
+body,
+input,
+textarea,
+select,
+button {
+  font-family: 'Montserrat', sans-serif;
+  color: #333;
+  font-size: 16px;
+}
+
+
+@media screen and (min-width: 768px) {
+  body {
+    font-size: 18px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  body {
+    font-size: 20px;
+  }
+}
+
+html,
+body {
+  height: 100%;
+}
+
+
+body {
+  line-height: 1.6;
+  background-color: #fff;
+  min-width: 335px;
+  overflow-x: hidden;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+
+strong,
+b {
+  color: rgb(35, 47, 62);
+  font-weight: 600;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #000;
+}
+
+
+
+

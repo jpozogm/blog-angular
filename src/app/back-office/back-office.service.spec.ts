@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { HomeProxiService } from './home-proxi.service';
+import { BackOfficeService } from './back-office.service';
 
-describe('HomeProxiService', () => {
-  let service: HomeProxiService;
+describe('BackOfficeService', () => {
+  let service: BackOfficeService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(HomeProxiService);
+    service = TestBed.inject(BackOfficeService);
   });
 
   it('should be created', () => {

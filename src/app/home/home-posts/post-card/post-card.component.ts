@@ -9,6 +9,4 @@ import { Post } from '../../../types/post';
 export class PostCardComponent{
 
   @Input() post: Post;
-
-
 }

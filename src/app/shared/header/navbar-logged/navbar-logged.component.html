@@ -1,0 +1,5 @@
+<p>|| User: {{tokenInfo?.body.user}} as role {{tokenInfo?.body.role}} || </p>
+<nav class="nav">
+    <a [routerLink] = "['login']" class="nav__item" (click)="logOut()">LogOut | </a>
+    <a [routerLink] = "['backOffice']" class="nav__item">BackOffice | </a> 
+</nav>

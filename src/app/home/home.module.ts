@@ -10,21 +10,9 @@ import { PostListComponent } from './home-posts/post-list/post-list.component';
 import { HomeComponent } from './home/home.component';
 
 const ROUTES: Routes = [
-  {
-    path: '',
-    component: HomeLayoutComponent,
-    children: [
-      {
-        path: 'home',
-        component: HomeComponent
-      },
-      {
-        path: 'post/:id',
-        component: PostDetailsComponent
-      }
-    ]
-  }
-
+  { path: '', component: HomeComponent},
+  { path: 'home', component: HomeComponent},
+  { path: 'post/:id', component: PostDetailsComponent}
 ];
 
 @NgModule({

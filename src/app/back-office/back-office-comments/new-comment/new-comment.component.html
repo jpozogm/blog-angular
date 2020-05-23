@@ -1,0 +1,7 @@
+<hr>
+<form [formGroup]="newComment">
+    <input id="commentContent" type="text" placeholder="Escribe tu comentario..." formControlName="commentContent">
+    <div><p>{{error}}</p></div>
+    <button (click)="saveNewComment()">Save</button> 
+</form>
+<hr>

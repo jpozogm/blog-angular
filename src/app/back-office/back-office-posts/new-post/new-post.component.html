@@ -1,0 +1,21 @@
+<p>Create your new post</p>
+
+
+
+<form [formGroup]="newPost">
+    <label for="postTitle">Title</label>
+    <input id="postTitle" type="text" formControlName="postTittle">
+
+    <label for="postContent">Content:</label>
+    <!--  <input id="postContent" type="text" formControlName="postContent"> -->
+    <textarea id="postContent" type="text" formControlName="postContent" placeholder="Describe yourself here..."></textarea>
+
+    <div><p>{{error}}</p></div>
+    <br>
+    <button (click)="back()">Cancel</button>
+    <button (click)="save()">Save</button>  
+</form>
+
+<p>** CAN-DEACTIVATED: ON **</p>
+
+
