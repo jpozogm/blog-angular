@@ -18,9 +18,9 @@
     <div *ngFor="let comment of post?.postComments">
 
         <hr> 
-        {{comment.commentAuthorNickName}}
+        {{comment?.commentAuthorNickName}}
         <br>
-        {{comment.commentContent}}
+        {{comment?.commentContent}}
     </div>
 
     <button (click)="backHome()">Back Home</button>

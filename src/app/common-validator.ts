@@ -1,6 +1,6 @@
 import { FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { LoginProxyService } from './login/login-proxy.service';
+import { LoginService } from './business/users/login.service';
 
 export class CommonValidator {
 
@@ -29,9 +29,10 @@ export class CommonValidator {
         };
     }
 
-    static userTaken(service: LoginProxyService){
+     static userTaken(service: LoginService){
         return(control: FormControl) => {
-            return new Promise((resolve) => { service.checkUserByname(control.value).subscribe(
+            return new Promise((resolve) => {
+                service.checkUserByname(control.value).subscribe(
                     (response) => {
                         resolve({ userTaken: true });
                     },
@@ -42,4 +43,28 @@ export class CommonValidator {
             });
         };
     }
+
+
+/*     static userTaken(service: LoginService) {
+        return(control: FormControl) => {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    let userExist;
+                    service.checkUserByname(control.value).subscribe(
+                        res => { userExist = res; },
+                        (error) => { resolve(null); }
+                    );
+                    if (userExist) {
+                        resolve({ userTaken: true });
+                    } else {
+                        resolve(null);
+                    }
+                }, 2000);
+
+            });
+
+        };
+    } */
+
 }
+

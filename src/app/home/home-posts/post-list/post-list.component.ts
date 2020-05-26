@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { BackOfficeProxyService } from 'src/app/back-office/back-office-proxy.service';
-import { Post } from 'src/app/types/post';
+import { PostService } from 'src/app/business/posts/post.service';
+import { Post } from 'src/app/business/posts/type/post';
 
 @Component({
   selector: 'app-post-list',
@@ -11,16 +11,16 @@ import { Post } from 'src/app/types/post';
 })
 export class PostListComponent implements OnInit {
 
-  publicPosts$: Observable<Post>;
+  publicPosts$: Observable<Post[]>;
   subscription: Subscription;
   commentId: string[];
 
   constructor(
-    private backOfficeProxyService: BackOfficeProxyService,
+    private PostService: PostService,
     private router: Router) { }
 
   ngOnInit(): void {
-    this.publicPosts$ = this.backOfficeProxyService.getPosts();
+    this.publicPosts$ = this.PostService.getPosts();
   }
 
 

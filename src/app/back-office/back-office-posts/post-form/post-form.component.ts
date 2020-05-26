@@ -2,8 +2,8 @@ import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/cor
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { Post } from 'src/app/types/post';
-import { BackOfficeProxyService } from '../../back-office-proxy.service';
+import { Post } from 'src/app/business/posts/type/post';
+import { PostProxyService } from '../../../business/posts/post-proxy.service';
 
 @Component({
   selector: 'app-post-form',
@@ -21,7 +21,7 @@ export class PostFormComponent implements OnInit, OnDestroy{
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private backOfficeproxyService: BackOfficeProxyService,
+    private PostProxyService: PostProxyService,
     private router: Router
   ) {}
 
@@ -33,7 +33,7 @@ export class PostFormComponent implements OnInit, OnDestroy{
     });
 
     this.subscription = this.activatedRoute.params.subscribe((params) => {
-      this.backOfficeproxyService.getPostByID(params.id).subscribe((data) => {
+      this.PostProxyService.getPostByID(params.id).subscribe((data) => {
         this.post = data; this.dataForm(this.post); });
     });
   }
@@ -47,7 +47,7 @@ export class PostFormComponent implements OnInit, OnDestroy{
 
   async updatePost(post) {
 
-    this.subscription = await this.backOfficeproxyService.updatePost(this.post._id, post)
+    this.subscription = await this.PostProxyService.updatePost(this.post._id, post)
     .subscribe((data) => {
       if (data) {
         this.refresh.emit();

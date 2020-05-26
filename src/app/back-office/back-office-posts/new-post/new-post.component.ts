@@ -2,9 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ConfirmService } from 'src/app/services/can-deactivated.service';
-import { Post } from 'src/app/types/post';
-import { BackOfficeProxyService } from '../../back-office-proxy.service';
+import { ConfirmService } from 'src/app/business/can-deactivated.service';
+import { Post } from 'src/app/business/posts/type/post';
+import { PostProxyService } from '../../../business/posts/post-proxy.service';
+import { PostService } from '../../../business/posts/post.service';
 
 @Component({
   selector: 'app-new-post',
@@ -22,7 +23,8 @@ export class NewPostComponent implements OnInit, ConfirmService, OnDestroy {
 
   constructor(
     private router: Router,
-    private backOfficeProxiService: BackOfficeProxyService,
+    private backOfficeProxiService: PostProxyService,
+    private PostService: PostService
     ) { }
 
 canDeactivate(): boolean{
@@ -47,7 +49,7 @@ canDeactivate(): boolean{
   }
 
   async save(){
-    this.postCreated = await this.backOfficeProxiService.saveNewPost(this.newPost.value).subscribe((data) => {
+    this.postCreated = await this.PostService.saveNewPost(this.newPost.value).subscribe((data) => {
       if (data) {
         this.router.navigate(['backOffice']);
         this.saved = true;

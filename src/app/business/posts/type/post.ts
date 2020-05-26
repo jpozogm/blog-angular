@@ -1,11 +1,10 @@
 export interface Post{
-    // posttitle: string;
-    _id: string;
     postTittle: string;
+    postComments: any;
+    _id: string;
     postAuthorName: string;
     postAuthorNickName: string;
     postContent: string;
     user: string;
     postDate: Date;
-    postComments: string[];
 }

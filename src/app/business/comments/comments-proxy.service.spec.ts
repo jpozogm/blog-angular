@@ -1,15 +1,15 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { BackOfficeProxyService } from './back-office-proxy.service';
+import { CommentsProxyService } from './comments-proxy.service';
 
-describe('BackOfficeproxyService', () => {
-  let service: BackOfficeProxyService;
+describe('CommentsProxyService', () => {
+  let service: CommentsProxyService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule]
     });
-    service = TestBed.inject(BackOfficeProxyService);
+    service = TestBed.inject(CommentsProxyService);
   //  httpMock = TestBed.inject(HttpClientTestingModule);
   });
 
@@ -17,9 +17,6 @@ describe('BackOfficeproxyService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('shouldverify get all posts request', () => {
-    service.getPosts().subscribe();
-  });
 });
 
 

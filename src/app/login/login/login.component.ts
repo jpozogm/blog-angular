@@ -2,10 +2,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { LoginService } from 'src/app/business/users/login.service';
 import { CommonValidator } from 'src/app/common-validator';
-import { LoginProxyService } from '../login-proxy.service';
-import { Token } from '../types/token';
-import { User } from '../types/user';
+import { LoginProxyService } from '../../business/users/login-proxy.service';
+import { Token } from '../../business/users/types/token';
+import { User } from '../../business/users/types/user';
 
 @Component({
   selector: 'app-login',
@@ -14,22 +15,35 @@ import { User } from '../types/user';
 })
 export class LoginComponent implements OnInit, OnDestroy {
 
-  constructor( private router: Router,
-               private loginproxyService: LoginProxyService) { }
+  constructor(
+    private router: Router,
+    private loginService: LoginService,
+    private loginproxyService: LoginProxyService) {
+      this.eye = '../../../assets/svg/sprite.svg#eye-open';
+      this.eyeSlash = './assets/svg/sprite.svg#eye-hide';
+      this.show = this.eye;
+    }
 
   user: User;
   signInLogin: FormGroup;
   signUpLogin: FormGroup;
-  subscription: Subscription;
+  signInSub: Subscription;
+  signUpSub: Subscription;
   login: Token;
   token: any;
   role: string;
   error: string;
-  name: string;
+
+  show: string;
+  eye: string;
+  eyeSlash: string;
+  hidden = 'ocultar';
+  passwordType = 'password';
+
 
   usertesting: string;
 
-  newUser: Subscription;
+  newUser: User;
   newUserLogged: Subscription;
 
   ngOnInit(): void {
@@ -41,20 +55,18 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.signUpLogin = new FormGroup({
       user: new FormControl('',
         [Validators.required, CommonValidator.startWithNumber],
-        [CommonValidator.userTaken(this.loginproxyService)]),
+        [CommonValidator.userTaken(this.loginService)]),
 
       password: new FormControl('', [Validators.required, Validators.minLength(4)]),
       repeatPassword: new FormControl('', [Validators.required, CommonValidator.compareValidator('password')]),
       role: new FormControl('', [Validators.required])
     });
-
-    this.name = 'Sagan';
   }
 
 
   signIn(form){
 
-    this.subscription = this.loginproxyService.signIn(form).subscribe((data) => {
+    this.signInSub = this.loginService.signIn(form).subscribe((data) => {
       this.token = data; console.log('data', data);
 
       if (data) {
@@ -69,7 +81,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   signUp() {
-    this.loginproxyService.signUp(this.signUpLogin.value).subscribe((data) => {
+    this.signUpSub = this.loginService.signUp(this.signUpLogin.value).subscribe((data) => {
       if (data) {
 
         this.newUser = data;
@@ -90,10 +102,24 @@ export class LoginComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy() {
-    if (this.subscription) {
-    this.subscription.unsubscribe();
+  seePassword() {
+    if (this.passwordType === 'password') {
+      this.passwordType = 'text';
+      this.show = this.eyeSlash;
+
+    } else {
+      this.passwordType = 'password';
+      this.show = this.eye;
     }
+  }
+
+  ngOnDestroy() {
+    if (this.signInSub) {
+    this.signInSub.unsubscribe();
+    }
+    if (this.signUpSub) {
+      this.signUpSub.unsubscribe();
+      }
   }
 
 }

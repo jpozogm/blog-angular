@@ -4,6 +4,11 @@ a {
     color: inherit;
 }
 
+input{
+    outline: none;
+}
+
+
 .angularIco{
     width: 15px;
     height: 15px;
@@ -14,13 +19,22 @@ a {
     padding: 10px;
 }
 
-.ng-valid {
+.in-valid {
     border: 2px solid green;
 }
 
-.ng-invalid {
+.in-invalid {
     border: 2px solid red;
 }
 .ng-pending {
     border: 2px solid grey;
 }
+
+.valid {
+    color: green;
+}
+
+.invalid {
+    color: red;
+}
+

@@ -2,9 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as jwt_decode from 'jwt-decode';
 import { Subscription } from 'rxjs';
-import { Post } from 'src/app/types/post';
-import { BackOfficeProxyService } from '../../back-office-proxy.service';
-import { BackOfficeService } from '../../back-office.service';
+import { CommentService } from 'src/app/business/comments/comments.service';
+import { Post } from 'src/app/business/posts/type/post';
+import { PostProxyService } from '../../../business/posts/post-proxy.service';
 @Component({
   selector: 'app-post-details',
   templateUrl: './post-details.component.html',
@@ -28,17 +28,18 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private backOfficeService: BackOfficeService,
-    private backOfficeproxyService: BackOfficeProxyService,
+    private commentService: CommentService,
+    private PostProxyService: PostProxyService,
   ) { }
+
   ngOnInit(): void {
 
     this.editPostBtn = false;
     this.editCommentBtn = false;
 
     this.subscription = this.activatedRoute.params.subscribe((params) => { this.id = params.id,
-      this.backOfficeproxyService.getPostByID(this.id).subscribe((data) => {
-        this.post = data; });
+      this.PostProxyService.getPostByID(this.id).subscribe((data) => {
+        this.post = data; console.log(this.post); });
     });
 
     this.token = localStorage.getItem('token');
@@ -51,7 +52,7 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
 
   async deletePost(){
 
-    this.deletePostSub =  await this.backOfficeproxyService.deletePost(this.id)
+    this.deletePostSub =  await this.PostProxyService.deletePost(this.id)
     .subscribe((data) => {
       if (data) {
         this.router.navigate(['backOffice']);
@@ -70,7 +71,7 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
     this.commentByIndex = this.post.postComments[i];
     this.commentId = this.commentByIndex._id;
 
-    this.deleteCommentSub =  await this.backOfficeproxyService.deleteComment(this.commentId)
+    this.deleteCommentSub =  await this.commentService.deleteComment(this.commentId)
     .subscribe((data) => {
       if (data) {
         window.location.href = `/backOffice/post/${this.id}`;

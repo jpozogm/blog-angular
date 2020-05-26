@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { BackOfficeProxyService } from '../../back-office-proxy.service';
+import { CommentService } from 'src/app/business/comments/comments.service';
 
 @Component({
   selector: 'app-new-comment',
@@ -15,7 +15,7 @@ export class NewCommentComponent implements OnInit, OnDestroy {
   commentSub: Subscription;
   error: string;
 
-  constructor(private backOfficeProxyService: BackOfficeProxyService, ) { }
+  constructor(private commentService: CommentService, ) { }
 
   ngOnInit(): void {
 
@@ -24,8 +24,8 @@ export class NewCommentComponent implements OnInit, OnDestroy {
     });
   }
 
-  async saveNewComment() {
-    this.commentSub = await this.backOfficeProxyService.saveNewComment(this.id, this.newComment.value)
+  saveNewComment() {
+    this.commentSub = this.commentService.saveNewComment(this.id, this.newComment.value)
     .subscribe((data) => {
       if (data) {
         window.location.href = `/backOffice/post/${this.id}`;

@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { BackOfficeProxyService } from 'src/app/back-office/back-office-proxy.service';
-import { Post } from 'src/app/types/post';
+import { PostProxyService } from 'src/app/business/posts/post-proxy.service';
+import { PostService } from 'src/app/business/posts/post.service';
+import { Post } from 'src/app/business/posts/type/post';
 
 @Component({
   selector: 'app-post-details',
@@ -17,12 +18,14 @@ export class PostDetailsComponent implements OnInit, OnDestroy{
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private backOfficeProxyService: BackOfficeProxyService ) { }
+    private PostProxyService: PostProxyService,
+    private PostService: PostService
+     ) { }
 
   ngOnInit(): void {
 
     this.subscription = this.activatedRoute.params.subscribe((params) => {
-      this.backOfficeProxyService.getPostByID(params.id).subscribe((data) => {
+      this.PostService.getPostByID(params.id).subscribe((data) => {
         this.post = data; console.log(this.post); });
     });
   }

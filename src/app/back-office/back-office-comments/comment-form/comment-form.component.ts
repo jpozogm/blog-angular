@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { BackOfficeProxyService } from '../../back-office-proxy.service';
+import { CommentService } from 'src/app/business/comments/comments.service';
 import { Comments } from '../type/comment';
 
 @Component({
@@ -20,7 +20,7 @@ export class CommentFormComponent implements OnInit, OnDestroy {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private backOfficeproxyService: BackOfficeProxyService,
+    private commentService: CommentService,
   ) { }
 
   ngOnInit(): void {
@@ -30,7 +30,7 @@ export class CommentFormComponent implements OnInit, OnDestroy {
     });
 
     this.subscription = this.activatedRoute.params.subscribe((params) => {
-      this.backOfficeproxyService.getCommentByID(params.id).subscribe((data) => {
+      this.commentService.getCommentByID(params.id).subscribe((data) => {
         this.comment = data; this.dataForm(this.comment); });
     });
   }
@@ -40,9 +40,8 @@ export class CommentFormComponent implements OnInit, OnDestroy {
       commentContent: comment.commentContent,
     });
   }
-  async saveComment(comment) {
-
-    this.saveCommentSub = await this.backOfficeproxyService.updateComment(this.comment._id, comment)
+  saveComment(comment) {
+    this.saveCommentSub = this.commentService.updateComment(this.comment._id, comment)
     .subscribe((data) => {
       if (data) {
         window.location.href = `/backOffice/post/${this.comment.commentsPostId}`;
