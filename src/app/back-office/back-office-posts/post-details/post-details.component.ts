@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import * as jwt_decode from 'jwt-decode';
 import { Subscription } from 'rxjs';
 import { CommentService } from 'src/app/business/comments/comments.service';
 import { Post } from 'src/app/business/posts/type/post';
@@ -42,7 +43,7 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
     });
 
     this.token = localStorage.getItem('token');
-
+    this.tokenInfo = jwt_decode(this.token);
   }
 
   editPost(){
