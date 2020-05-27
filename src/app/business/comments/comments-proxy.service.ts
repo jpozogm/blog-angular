@@ -19,11 +19,11 @@ export class CommentsProxyService {
     return this.httpClient.get<CommentDTO>(`${environment.apiUrl}${environment.commentsEndpoint}${id}`);
   }
 
-  saveNewComment(id: string, newComment: CommentDTO): Observable<CommentDTO>{
+  saveNewComment(id: string, newComment): Observable<CommentDTO>{
     return this.httpClient.post<CommentDTO>(`${environment.apiUrl}${environment.commentsEndpoint}${id}`, newComment);
   }
 
-  updateComment(id: string, comment: CommentDTO): Observable<CommentDTO>{
+  updateComment(id: string, comment): Observable<CommentDTO>{
     return this.httpClient.put<CommentDTO>(`${environment.apiUrl}${environment.commentsEndpoint}${id}`, comment);
   }
 

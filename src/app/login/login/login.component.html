@@ -92,7 +92,9 @@
     [class.in-invalid]="signUpLogin.get('repeatPassword').touched && signUpLogin.get('repeatPassword').invalid"
     [class.in-valid]="signUpLogin.get('repeatPassword').touched && signUpLogin.get('repeatPassword').valid"> 
 
-
+    <svg alt="show Password" class="angularIco" (click)="seePassword()">
+        <use [attr.xlink:href]="show"></use>
+    </svg>
 
     <div *ngIf="signUpLogin.get('repeatPassword').touched && !signUpLogin.get('repeatPassword').valid">
 
