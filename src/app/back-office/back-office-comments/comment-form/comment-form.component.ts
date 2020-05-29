@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CommentService } from 'src/app/business/comments/comments.service';
-import { Comments } from '../type/comment';
+import { Comment } from '../../../business/comments/type/comment';
 
 @Component({
   selector: 'app-comment-form',
@@ -15,7 +15,7 @@ export class CommentFormComponent implements OnInit, OnDestroy {
   editComment: FormGroup;
   subscription: Subscription;
   saveCommentSub: Subscription;
-  comment: Comments;
+  comment: Comment;
   error: string;
 
   constructor(

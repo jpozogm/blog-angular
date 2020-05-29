@@ -1,19 +1,16 @@
 
 <div>
-
     <div class="card-container">
-        
-
         <div *ngIf="this.editPostBtn === false" class="border">
             
             <div class="card__side-info">
-                <p>{{post?.postDate | date: 'd/MMM/yyyy, h:mm a'}}</p>
-                <p class="card__author-name">Author name: {{post?.postAuthorName }}</p>
+                <p>{{post$?.postDate | date: 'd/MMM/yyyy, h:mm a'}}</p>
+                <p class="card__author-name">Author name: {{post$?.postAuthorName }}</p>
             </div>
 
             <div class="card__body">
-                <h2 class="card__post-tittle">{{post?.postTittle | uppercase}}</h2>
-                <p class="card__post-content">{{post?.postContent}}</p>
+                <h2 class="card__post-tittle">{{post$?.postTittle | uppercase}}</h2>
+                <p class="card__post-content">{{post$?.postContent}}</p>
             </div>  
         </div>
 
@@ -25,7 +22,7 @@
             <app-post-form (refresh)="editPost()"></app-post-form>
         </div>
 
-        <div *ngIf="tokenInfo?.body._id === post?.user || tokenInfo?.body.role === 'admin'">
+        <div *ngIf="tokenInfo?.body._id === post$?.user || tokenInfo?.body.role === 'admin'">
             <button *ngIf="this.editPostBtn === false" (click)="editPost()">Edit</button>
             <button *ngIf="this.editPostBtn === true" (click)="editPost()">Cancel</button>
             <button (click)="deletePost()">Delete</button>
@@ -34,13 +31,14 @@
     </div>
 
     <div class="card__comments">
-        <div *ngFor="let comment of post?.postComments; index as i">
+        <div *ngFor="let comment of post$?.postComments; index as i">
 
             <hr> 
             {{comment?.commentAuthorNickName}}
             <br>
             {{comment?.commentContent}}
             <br>
+
 
             <div *ngIf="tokenInfo?.body._id === comment?.userId || tokenInfo?.body.role === 'admin'">
                 <button [routerLink]="['/backOffice/comment', comment?._id]" (click)="editPost()">Edit</button> 
@@ -56,4 +54,3 @@
     <button (click)="backBackOffice()">Back to Back Office</button> 
 
 </div>
-

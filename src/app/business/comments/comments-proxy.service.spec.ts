@@ -69,5 +69,6 @@ export const FAKE_COMMENTS = [{
   commentAuthorNickName: 'M.Rajoy',
   commentContent: 'Rajoy',
   _id: '5ec50e7de16fefce53367992',
-  commentsPostId: []
+  commentsPostId: '5ec50ddbe16fefce5336798f',
+  userId: '5ec50ddsdbe16fefce5336798f'
 }];

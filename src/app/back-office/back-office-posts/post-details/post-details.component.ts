@@ -3,8 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import * as jwt_decode from 'jwt-decode';
 import { Subscription } from 'rxjs';
 import { CommentService } from 'src/app/business/comments/comments.service';
+import { PostsStoreService } from 'src/app/business/posts/post.store';
 import { Post } from 'src/app/business/posts/type/post';
-import { PostProxyService } from '../../../business/posts/post-proxy.service';
 @Component({
   selector: 'app-post-details',
   templateUrl: './post-details.component.html',
@@ -12,10 +12,8 @@ import { PostProxyService } from '../../../business/posts/post-proxy.service';
 })
 export class PostDetailsComponent implements OnInit, OnDestroy {
 
-  subscription: Subscription;
-  deletePostSub: Subscription;
   deleteCommentSub: Subscription;
-  post: Post;
+  post$: Post;
   editPostBtn: boolean;
   editCommentBtn: boolean;
   id: string;
@@ -24,54 +22,49 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
   error: string;
   token: string;
   tokenInfo: any;
+  postID: string;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private commentService: CommentService,
-    private PostProxyService: PostProxyService,
+    private store: PostsStoreService,
   ) { }
 
   ngOnInit(): void {
 
     this.editPostBtn = false;
     this.editCommentBtn = false;
+    this.store.init();
 
-    this.subscription = this.activatedRoute.params.subscribe((params) => { this.id = params.id,
-      this.PostProxyService.getPostByID(this.id).subscribe((data) => {
-        this.post = data; console.log(this.post); });
-    });
+    this.postID =  this.activatedRoute.snapshot.paramMap.get('id');
+    this.getPostById(this.postID);
 
     this.token = localStorage.getItem('token');
     this.tokenInfo = jwt_decode(this.token);
   }
 
+  async getPostById(postId) {
+    this.post$ = await this.store.getPostById$(postId);
+  }
+
+
   editPost(){
     this.editPostBtn = !this.editPostBtn;
   }
 
-  async deletePost(){
+  deletePost(){
+    this.store.delete$(this.postID);
+    this.store.get$();
+    window.location.href = `/backOffice`;
 
-    this.deletePostSub =  await this.PostProxyService.deletePost(this.id)
-    .subscribe((data) => {
-      if (data) {
-        this.router.navigate(['backOffice']);
-        }
-    },
-      err => {
-        this.error = err.error.message;
-      },
-      () => {
-        console.log('Proceso completado');
-      }
-    );
   }
 
-  async deleteComment(i){
-    this.commentByIndex = this.post.postComments[i];
+  deleteComment(i){
+   // this.commentByIndex = this.post.postComments[i];
     this.commentId = this.commentByIndex._id;
 
-    this.deleteCommentSub =  await this.commentService.deleteComment(this.commentId)
+    this.deleteCommentSub = this.commentService.deleteComment(this.commentId)
     .subscribe((data) => {
       if (data) {
         window.location.href = `/backOffice/post/${this.id}`;
@@ -90,17 +83,8 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.subscription) {
-    this.subscription.unsubscribe();
-    }
-    if (this.deletePostSub) {
-      this.deletePostSub.unsubscribe();
-    }
     if (this.deleteCommentSub) {
       this.deleteCommentSub.unsubscribe();
     }
   }
 }
-
-
-

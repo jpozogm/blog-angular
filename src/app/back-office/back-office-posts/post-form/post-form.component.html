@@ -1,8 +1,8 @@
 
 <div class="border">
     <div class="card__body">
-        <p class="card__author-name">{{post?.postAuthorName }}</p>
-        <p class="card__author-nick-name">{{post?.postAuthorNickName}}</p>
+        <p class="card__author-name">{{post$?.postAuthorName }}</p>
+        <p class="card__author-nick-name">{{post$?.postAuthorNickName}}</p>
     </div>  
 
     <form [formGroup]="editPost">
@@ -11,7 +11,7 @@
 
         <label for="postContent">Contenido del post</label>
         <!-- <input id="postContent" type="text" formControlName="postContent"> -->
-        <textarea id="postContent" type="text" formControlName="postContent">{{post?.postContent}}</textarea>
+        <textarea id="postContent" type="text" formControlName="postContent">{{post$?.postContent}}</textarea>
 
         <br>
 

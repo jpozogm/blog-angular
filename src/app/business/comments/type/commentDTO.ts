@@ -3,4 +3,5 @@ export interface CommentDTO{
     commentContent: string;
     _id: string;
     commentsPostId: string;
+    userId: string;
 }

@@ -36,7 +36,8 @@ export class PostService {
   saveNewPost(post: Post): Observable<Post>{
     return this.proxy.saveNewPost(this.modelToDTO(post)).pipe(
       map((postResult: PostDTO) => { return {
-        postId: postResult._id,
+        // postId: postResult._id,
+        _id: postResult._id,
         ...post
         };
       })

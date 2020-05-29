@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { PostService } from 'src/app/business/posts/post.service';
+import { PostsStoreService } from 'src/app/business/posts/post.store';
 import { Post } from 'src/app/business/posts/type/post';
 
 @Component({
@@ -16,11 +16,12 @@ export class PostListComponent implements OnInit {
   commentId: string[];
 
   constructor(
-    private PostService: PostService,
+    private store: PostsStoreService,
     private router: Router) { }
 
   ngOnInit(): void {
-    this.publicPosts$ = this.PostService.getPosts();
+    this.store.init();
+    this.publicPosts$ = this.store.get$();
   }
 
 

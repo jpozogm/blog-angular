@@ -2,8 +2,9 @@ import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/cor
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { PostsStoreService } from 'src/app/business/posts/post.store';
 import { Post } from 'src/app/business/posts/type/post';
-import { PostProxyService } from '../../../business/posts/post-proxy.service';
+import { PostService } from '../../../business/posts/post.service';
 
 @Component({
   selector: 'app-post-form',
@@ -16,13 +17,15 @@ export class PostFormComponent implements OnInit, OnDestroy{
 
   editPost: FormGroup;
   subscription: Subscription;
-  post: Post;
+  post$: Post;
   error: string;
+  postID: string;
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private PostProxyService: PostProxyService,
-    private router: Router
+    private postService: PostService,
+    private router: Router,
+    private store: PostsStoreService
   ) {}
 
   ngOnInit(): void {
@@ -32,10 +35,14 @@ export class PostFormComponent implements OnInit, OnDestroy{
       postContent: new FormControl('', [Validators.required, Validators.minLength(5)])
     });
 
-    this.subscription = this.activatedRoute.params.subscribe((params) => {
-      this.PostProxyService.getPostByID(params.id).subscribe((data) => {
-        this.post = data; this.dataForm(this.post); });
-    });
+    this.postID =  this.activatedRoute.snapshot.paramMap.get('id');
+    this.getPostById(this.postID);
+  }
+
+  async getPostById(postId) {
+    console.log(postId);
+    this.post$ = await this.store.getPostById$(postId);
+    this.dataForm(this.post$);
   }
 
   dataForm(post): void{
@@ -46,19 +53,8 @@ export class PostFormComponent implements OnInit, OnDestroy{
   }
 
   async updatePost(post) {
-
-    this.subscription = await this.PostProxyService.updatePost(this.post._id, post)
-    .subscribe((data) => {
-      if (data) {
-        this.refresh.emit();
-      }
-    },
-      err => {
-        this.error = err.error.message;
-      },
-      () => {
-      console.log('Proceso completado'); }
-    );
+    this.store.update$(this.postID, post);
+    this.refresh.emit();
   }
 
 resetPost(){
@@ -72,3 +68,23 @@ ngOnDestroy() {
     }
   }
 }
+
+
+
+/*
+async updatePost(post) {
+
+
+  this.subscription = await this.postService.updatePost(this.post._id, post)
+  .subscribe((data) => {
+    if (data) {
+      this.refresh.emit();
+    }
+  },
+    err => {
+      this.error = err.error.message;
+    },
+    () => {
+    console.log('Proceso completado'); }
+  );
+} */

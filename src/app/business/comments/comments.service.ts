@@ -29,7 +29,7 @@ export class CommentService {
   saveNewComment(id: string, newComment: Comment): Observable<Comment> {
     return this.proxy.saveNewComment(id, this.modelToDTO(newComment)).pipe(
       map((commentResult: CommentDTO) => { return {
-        commenttId: commentResult._id,
+        comment: commentResult._id,
         ...newComment
         };
       })
@@ -49,7 +49,8 @@ export class CommentService {
       commentAuthorNickName: commentDTO.commentAuthorNickName,
       commentContent: commentDTO.commentContent,
       _id: commentDTO._id,
-      commentsPostId: commentDTO.commentsPostId
+      commentsPostId: commentDTO.commentsPostId,
+      userId: commentDTO.userId
     };
   }
 
@@ -58,7 +59,8 @@ export class CommentService {
       commentAuthorNickName: comment.commentAuthorNickName,
       commentContent: comment.commentContent,
       _id: comment._id,
-      commentsPostId: comment.commentsPostId
+      commentsPostId: comment.commentsPostId,
+      userId : comment.userId
     };
   }
 

@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { PostsStoreService } from 'src/app/business/posts/post.store';
 import { Post } from 'src/app/business/posts/type/post';
-import { PostProxyService } from '../../../business/posts/post-proxy.service';
-import { PostService } from '../../../business/posts/post.service';
 
 @Component({
   selector: 'app-post-list',
@@ -16,13 +15,13 @@ export class PostListComponent implements OnInit  {
   commentId: string[];
 
   constructor(
-    private PostProxyService: PostProxyService,
     private router: Router,
-    private PostService: PostService
+    private store: PostsStoreService,
   ) { }
 
   ngOnInit(): void {
-    this.privatePosts$ = this.PostService.getPosts();
+    this.store.init();
+    this.privatePosts$ = this.store.get$();
   }
 
   showpost(id){

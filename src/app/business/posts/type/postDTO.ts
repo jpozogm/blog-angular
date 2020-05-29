@@ -1,6 +1,8 @@
+import { Comment } from '../../comments/type/comment';
+
 export interface PostDTO{
     postTittle: string;
-    postComments: string[];
+    postComments: Comment[];
     _id: string;
     postAuthorName: string;
     postAuthorNickName: string;

@@ -2,9 +2,11 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { Comments } from 'src/app/back-office/back-office-comments/type/comment';
+import { FAKE_POSTS } from '../posts/post-proxy.service.spec';
 import { CommentsProxyService } from './comments-proxy.service';
 import { FAKE_COMMENTS } from './comments-proxy.service.spec';
 import { CommentService } from './comments.service';
+
 
 
 describe('PostService', () => {
@@ -23,7 +25,7 @@ describe('PostService', () => {
     expect(service).toBeTruthy();
   });
 
-/*   it('should mapper dto to model: getCommentByID', async (() => {
+  it('should mapper dto to model: getCommentByID', async (() => {
     const spyProxy = spyOn(proxy, 'getCommentByID').and.returnValue(of(FAKE_COMMENTS[0]));
     service.getCommentByID(FAKE_COMMENTS[0]._id).subscribe(
      (comment: Comments) => {
@@ -31,11 +33,11 @@ describe('PostService', () => {
      }
     );
     expect(spyProxy).toHaveBeenCalled();
-  })); */
+  }));
 
   it('should mapper dto to model: saveNewComment', async (() => {
     const spyProxy = spyOn(proxy, 'saveNewComment').and.returnValue(of(FAKE_COMMENTS[0]));
-    service.saveNewComment(FAKE_COMMENTS[0]._id, FAKE_COMMENTS[0]).subscribe(
+    service.saveNewComment(FAKE_POSTS[0]._id, FAKE_COMMENTS[0]).subscribe(
      (comment: Comments) => {
        expect(comment.commentAuthorNickName).toEqual(FAKE_COMMENTS[0].commentAuthorNickName);
      }
@@ -43,6 +45,14 @@ describe('PostService', () => {
     expect(spyProxy).toHaveBeenCalled();
   }));
 
-
+  it('should mapper dto to model: Delete Comment', async (() => {
+    const spyProxy = spyOn(proxy, 'deleteComment').and.returnValue(of(FAKE_COMMENTS[0]));
+    service.deleteComment(FAKE_POSTS[0]._id).subscribe(
+     (comment: Comments) => {
+       expect(comment.commentAuthorNickName).toEqual(FAKE_COMMENTS[0].commentAuthorNickName);
+     }
+    );
+    expect(spyProxy).toHaveBeenCalled();
+  }));
 
 });
