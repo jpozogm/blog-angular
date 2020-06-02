@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CommentService } from 'src/app/business/comments/comments.service';
+import { PostsDetailsStoreService } from 'src/app/business/posts/post-details.store';
 import { Comment } from '../../../business/comments/type/comment';
 
 @Component({
@@ -17,10 +18,14 @@ export class CommentFormComponent implements OnInit, OnDestroy {
   saveCommentSub: Subscription;
   comment: Comment;
   error: string;
+  commentId: string;
+  commentDetails: any;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private commentService: CommentService,
+    private postDetailStore: PostsDetailsStoreService,
+    private storePostDetail: PostsDetailsStoreService,
   ) { }
 
   ngOnInit(): void {
@@ -29,43 +34,30 @@ export class CommentFormComponent implements OnInit, OnDestroy {
       commentContent: new FormControl('', [Validators.required, Validators.minLength(5)])
     });
 
-    this.subscription = this.activatedRoute.params.subscribe((params) => {
-      this.commentService.getCommentByID(params.id).subscribe((data) => {
-        this.comment = data; this.dataForm(this.comment); });
-    });
+    this.commentId = this.activatedRoute.snapshot.params.id;
+    this.storePostDetail.getCommentById$(this.commentId);
+    this.subscription = this.storePostDetail.get$().subscribe(data => {this.commentDetails = data, this.dataForm(this.commentDetails); } );
+
   }
 
   dataForm(comment): void{
     this.editComment.patchValue({
-      commentContent: comment.commentContent,
+      commentContent: comment?.commentContent,
     });
   }
+
   saveComment(comment) {
-    this.saveCommentSub = this.commentService.updateComment(this.comment._id, comment)
-    .subscribe((data) => {
-      if (data) {
-        window.location.href = `/backOffice/post/${this.comment.commentsPostId}`;
-      }
-      },
-      err => {
-        this.error = err.error.message;
-      },
-      () => {
-      console.log('Proceso completado'); }
-    );
+    this.postDetailStore.updateComment$(this.commentId, comment);
+    window.location.href = `/backOffice/post/${this.commentDetails.commentsPostId}`;
   }
 
   resetComment(){
     this.editComment.reset();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(){
     if (this.subscription) {
-    this.subscription.unsubscribe();
+      this.subscription.unsubscribe();
     }
-    if (this.saveCommentSub) {
-      this.saveCommentSub.unsubscribe();
-      }
   }
-
 }

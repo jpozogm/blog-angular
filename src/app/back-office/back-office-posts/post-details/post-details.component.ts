@@ -1,19 +1,22 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as jwt_decode from 'jwt-decode';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { CommentService } from 'src/app/business/comments/comments.service';
+import { PostsDetailsStoreService } from 'src/app/business/posts/post-details.store';
 import { PostsStoreService } from 'src/app/business/posts/post.store';
 import { Post } from 'src/app/business/posts/type/post';
+import { Comment } from '../../../business/comments/type/comment';
+
 @Component({
   selector: 'app-post-details',
   templateUrl: './post-details.component.html',
   styleUrls: ['./post-details.component.scss']
 })
-export class PostDetailsComponent implements OnInit, OnDestroy {
+export class PostDetailsComponent implements OnInit{
 
   deleteCommentSub: Subscription;
-  post$: Post;
+  post$: Observable<Post>;
   editPostBtn: boolean;
   editCommentBtn: boolean;
   id: string;
@@ -28,24 +31,22 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private commentService: CommentService,
-    private store: PostsStoreService,
+    private storePostDetail: PostsDetailsStoreService,
+    private storePost: PostsStoreService,
   ) { }
 
   ngOnInit(): void {
 
     this.editPostBtn = false;
     this.editCommentBtn = false;
-    this.store.init();
+
 
     this.postID =  this.activatedRoute.snapshot.paramMap.get('id');
-    this.getPostById(this.postID);
+    this.storePostDetail.init(this.postID);
+    this.post$ = this.storePostDetail.get$();
 
     this.token = localStorage.getItem('token');
     this.tokenInfo = jwt_decode(this.token);
-  }
-
-  async getPostById(postId) {
-    this.post$ = await this.store.getPostById$(postId);
   }
 
 
@@ -54,37 +55,22 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
   }
 
   deletePost(){
-    this.store.delete$(this.postID);
-    this.store.get$();
+    this.storePost.deletePost$(this.postID);
     window.location.href = `/backOffice`;
-
   }
 
-  deleteComment(i){
-   // this.commentByIndex = this.post.postComments[i];
-    this.commentId = this.commentByIndex._id;
-
-    this.deleteCommentSub = this.commentService.deleteComment(this.commentId)
-    .subscribe((data) => {
-      if (data) {
-        window.location.href = `/backOffice/post/${this.id}`;
-      }
-      },
-      err => {
-        this.error = err.error.message;
-      },
-      () => {
-      console.log('Proceso completado'); }
-    );
+  deleteComment(id){
+    this.storePostDetail.deleteComment$(id);
   }
 
   backBackOffice(){
     this.router.navigate(['backOffice']);
   }
 
-  ngOnDestroy() {
-    if (this.deleteCommentSub) {
-      this.deleteCommentSub.unsubscribe();
-    }
+  updateComment$(id: string, comment: Comment){
+    this.storePostDetail.updateComment$(id, comment);
   }
+
+
+
 }

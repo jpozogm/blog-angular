@@ -1,7 +1,9 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { CommentService } from 'src/app/business/comments/comments.service';
+import { PostsDetailsStoreService } from 'src/app/business/posts/post-details.store';
+import { Post } from 'src/app/business/posts/type/post';
 
 @Component({
   selector: 'app-new-comment',
@@ -14,8 +16,11 @@ export class NewCommentComponent implements OnInit, OnDestroy {
   newComment: FormGroup;
   commentSub: Subscription;
   error: string;
+  comment$: Observable<Post[]>;
 
-  constructor(private commentService: CommentService, ) { }
+  constructor(
+    private commentService: CommentService,
+    private postDetail: PostsDetailsStoreService) { }
 
   ngOnInit(): void {
 
@@ -24,19 +29,9 @@ export class NewCommentComponent implements OnInit, OnDestroy {
     });
   }
 
-  saveNewComment() {
-    this.commentSub = this.commentService.saveNewComment(this.id, this.newComment.value)
-    .subscribe((data) => {
-      if (data) {
-        window.location.href = `/backOffice/post/${this.id}`;
-      }
-      },
-      err => {
-        this.error = err.error.message;
-      },
-      () => {
-      console.log('Proceso completado'); }
-    );
+  async saveNewComment() {
+    this.postDetail.saveNewComment$(this.id, this.newComment.value);
+    this.newComment.reset();
   }
 
   ngOnDestroy() {
@@ -45,7 +40,3 @@ export class NewCommentComponent implements OnInit, OnDestroy {
     }
   }
 }
-
-
-
-

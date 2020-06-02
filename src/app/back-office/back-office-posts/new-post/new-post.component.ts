@@ -60,7 +60,6 @@ canDeactivate(): boolean{
     this.newPost.updateValueAndValidity();
 
     this.store.create$(this.newPost.value);
-    console.log('this.newPost.value', this.newPost.value);
     this.saved = true;
     this.router.navigate(['backOffice']);
   }

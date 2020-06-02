@@ -1,7 +1,8 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { PostsDetailsStoreService } from 'src/app/business/posts/post-details.store';
 import { PostsStoreService } from 'src/app/business/posts/post.store';
 import { Post } from 'src/app/business/posts/type/post';
 import { PostService } from '../../../business/posts/post.service';
@@ -11,7 +12,7 @@ import { PostService } from '../../../business/posts/post.service';
   templateUrl: './post-form.component.html',
   styleUrls: ['./post-form.component.scss']
 })
-export class PostFormComponent implements OnInit, OnDestroy{
+export class PostFormComponent implements OnInit, OnDestroy, OnChanges{
 
   @Output() refresh = new EventEmitter();
 
@@ -25,10 +26,14 @@ export class PostFormComponent implements OnInit, OnDestroy{
     private activatedRoute: ActivatedRoute,
     private postService: PostService,
     private router: Router,
-    private store: PostsStoreService
+    private store: PostsStoreService,
+    private postDetail: PostsDetailsStoreService
+
   ) {}
 
   ngOnInit(): void {
+
+    this.store.init();
 
     this.editPost = new FormGroup({
       postTittle: new FormControl('', [Validators.required, Validators.minLength(5)]),
@@ -40,7 +45,6 @@ export class PostFormComponent implements OnInit, OnDestroy{
   }
 
   async getPostById(postId) {
-    console.log(postId);
     this.post$ = await this.store.getPostById$(postId);
     this.dataForm(this.post$);
   }
@@ -52,8 +56,8 @@ export class PostFormComponent implements OnInit, OnDestroy{
     });
   }
 
-  async updatePost(post) {
-    this.store.update$(this.postID, post);
+  updatePost(post) {
+    this.postDetail.updatePost$(this.postID, post);
     this.refresh.emit();
   }
 
@@ -61,6 +65,9 @@ resetPost(){
     this.editPost.reset();
   }
 
+  ngOnChanges(){
+    this.store.init();
+  }
 
 ngOnDestroy() {
     if (this.subscription) {
@@ -71,20 +78,3 @@ ngOnDestroy() {
 
 
 
-/*
-async updatePost(post) {
-
-
-  this.subscription = await this.postService.updatePost(this.post._id, post)
-  .subscribe((data) => {
-    if (data) {
-      this.refresh.emit();
-    }
-  },
-    err => {
-      this.error = err.error.message;
-    },
-    () => {
-    console.log('Proceso completado'); }
-  );
-} */

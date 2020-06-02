@@ -1,14 +1,18 @@
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
+import { CommentService } from '../comments/comments.service';
+import { Comment } from '../comments/type/comment';
 import { Store } from '../store';
 import { PostService } from './post.service';
 import { Post } from './type/post';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 
 export class PostsStoreService extends Store<Post[]>{
 
-    constructor(private service: PostService) {
+    constructor(
+        private service: PostService,
+        private commentService: CommentService, ) {
         super();
     }
 
@@ -33,25 +37,12 @@ export class PostsStoreService extends Store<Post[]>{
 
     create$(post: Post): Promise<Post> {
         return this.service.saveNewPost(post).pipe(
-        tap(newPost => {
-            this.store([newPost, ...this.get()]);
-            console.log('newPost', newPost);
-        }) ).toPromise();
+            tap(newPost => {
+                this.store([newPost, ...this.get()]);
+            })).toPromise();
     }
 
-    update$(postId: string, post: Post): Promise<Post> {
-        return this.service.updatePost(postId, post).pipe(
-            tap(() => {
-                const posts = this.get();
-                const p = Object.assign({}, post);
-                const index = this.searchIndex(posts, postId);
-                const newPosts = [...posts.slice(0, index), p, ...posts.slice(index + 1)];
-                this.store(newPosts);
-        })
-        ).toPromise();
-    }
-
-    delete$(postId: string): Promise<Post> {
+    deletePost$(postId: string): Promise<Post> {
         return this.service.deletePost(postId).pipe(
             tap(() => {
                 const posts = this.get();
@@ -61,8 +52,22 @@ export class PostsStoreService extends Store<Post[]>{
         ).toPromise();
     }
 
+    updatePost$(updatePost) {
+        const posts = this.get();
+        const p = Object.assign({}, updatePost);
+        const index = this.searchIndex(posts, updatePost._id);
+        const newPosts = [...posts.slice(0, index), p, ...posts.slice(index + 1)];
+        this.store(newPosts);
+    }
+
+
+
     private searchIndex(posts: Post[], postId: string): number {
         return posts.findIndex(item => item._id === postId);
+    }
+
+    private searchIndexComments(comments: Comment[], commentId: string): number {
+        return comments.findIndex(item => item._id === commentId);
     }
 
 }

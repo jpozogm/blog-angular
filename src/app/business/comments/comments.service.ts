@@ -29,7 +29,9 @@ export class CommentService {
   saveNewComment(id: string, newComment: Comment): Observable<Comment> {
     return this.proxy.saveNewComment(id, this.modelToDTO(newComment)).pipe(
       map((commentResult: CommentDTO) => { return {
-        comment: commentResult._id,
+        _id: commentResult._id,
+        commentAuthorNickName: commentResult.commentAuthorNickName,
+        userId: commentResult.userId,
         ...newComment
         };
       })

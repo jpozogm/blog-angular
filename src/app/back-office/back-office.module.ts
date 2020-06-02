@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
+// import { ButtonModule } from 'primeng/button';
 import { AuthService } from '../business/auth.service';
 import { ConfirmService } from '../business/can-deactivated.service';
 import { BackOfficeCommentsComponent } from './back-office-comments/back-office-comments.component';
@@ -59,7 +61,13 @@ const ROUTES: Routes = [
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    RouterModule.forChild(ROUTES)
+
+    // PrimeNg
+    // BrowserAnimationsModule,
+    // ButtonModule,
+
+
+    RouterModule.forChild(ROUTES),
   ],
   exports: [
     BackOfficeComponent,
