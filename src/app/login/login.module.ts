@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { SharedModule } from '../shared/shared.module';
 import { LoginComponent } from './login/login.component';
 
 const ROUTES: Routes = [
@@ -13,13 +14,16 @@ const ROUTES: Routes = [
 ];
 
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [LoginComponent] ,
   imports: [
     CommonModule,
     ReactiveFormsModule,
     HttpClientModule,
+    SharedModule,
+
     RouterModule.forChild(ROUTES)
   ],
-  exports: [LoginComponent]
+  exports: [LoginComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class LoginModule { }

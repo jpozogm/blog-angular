@@ -1,7 +1,11 @@
-<hr>
+
+<div [ngStyle]="{'margin-top':'30px'}">
 <form [formGroup]="newComment">
-    <input id="commentContent" type="text" placeholder="Escribe tu comentario..." formControlName="commentContent">
+    <span class="ui-float-label">
+        <input id="commentContent" type="text" size="30" pInputText formControlName="commentContent">
+        <label for="commentContent">Escribe un comentario...</label>
+        <button pButton type="button" label="Save" class="ui-button-raised ui-button-secondary" (click)="saveNewComment()"></button> 
+    </span>
     <div><p>{{error}}</p></div>
-    <button (click)="saveNewComment()">Save</button> 
 </form>
-<hr>
+</div>

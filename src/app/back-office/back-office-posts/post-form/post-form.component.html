@@ -1,17 +1,15 @@
 
-<div class="border">
+<div>
     <div class="card__body">
-        <p class="card__author-name">{{post$?.postAuthorName }}</p>
-        <p class="card__author-nick-name">{{post$?.postAuthorNickName}}</p>
+        <p class="card__author-name">Edited by: {{post$?.postAuthorName }}</p>
     </div>  
 
     <form [formGroup]="editPost">
-        <label for="postTittle">Título del post</label>
-        <input id="postTittle" type="text" formControlName="postTittle">
+        <input id="postTittle" [ngStyle]="{'width':'100%', 'margin':'10px 0'}" pInputText type="text" formControlName="postTittle">
 
-        <label for="postContent">Contenido del post</label>
         <!-- <input id="postContent" type="text" formControlName="postContent"> -->
-        <textarea id="postContent" type="text" formControlName="postContent">{{post$?.postContent}}</textarea>
+        <textarea id="postContent" type="text" formControlName="postContent"
+        [rows]="10" [cols]="40" [ngStyle]="{'width':'100%'}" pInputTextarea autoResize="autoResize">{{post$?.postContent}}</textarea>
 
         <br>
 
@@ -19,7 +17,7 @@
 
         <br> 
         
-        <button (click)="updatePost(editPost.value)">Save</button>
-        <button (click)="resetPost()">Reset</button>
+        <button pButton type="button" label="Save" class="ui-button-raised ui-button-success" [ngStyle]="{'margin':'10px'}"  (click)="updatePost(editPost.value)"></button>
+        <button pButton type="button" label="Reset" class="ui-button-raised ui-button-warning" (click)="resetPost()"></button>
     </form>
 </div>

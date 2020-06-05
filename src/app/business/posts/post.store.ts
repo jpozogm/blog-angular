@@ -60,8 +60,6 @@ export class PostsStoreService extends Store<Post[]>{
         this.store(newPosts);
     }
 
-
-
     private searchIndex(posts: Post[], postId: string): number {
         return posts.findIndex(item => item._id === postId);
     }

@@ -1,1 +1,29 @@
-<app-post-card *ngFor="let post of ( privatePosts$ | async ) let i = index" [post]="post"></app-post-card>
+<!-- <app-post-card *ngFor="let post of ( privatePosts$ | async ) let i = index" [post]="post"></app-post-card>
+ -->
+
+<p-table  [scrollable]="true" scrollHeight="500px"  [value]="( privatePosts$ | async )">
+
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Title</th>
+            <th>Content</th>
+            <th>Author</th>
+            <th>Date</th>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-post>
+        <tr>
+            <td class="text-center"><a [routerLink]="['/backOffice/post', post?._id]">{{post?.postTittle | uppercase}}</a></td>
+            <td class="text-center"><a [routerLink]="['/backOffice/post', post?._id]">{{post?.postContent | slice:0:95}}</a></td>
+            <td class="text-center"> <a [routerLink]="['/backOffice/post', post?._id]">{{post?.postAuthorName }}</a></td>
+            <td class="text-center"><a [routerLink]="['/backOffice/post', post?._id]">{{post?.postDate | date: 'd/MMM/yyyy, h:mm a'}}</a></td>
+        </tr> 
+    </ng-template>
+</p-table>
+
+
+
+
+
+

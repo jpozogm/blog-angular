@@ -1,21 +1,23 @@
-<p>Create your new post</p>
+<h3>Create your new post</h3>
 
 
 
 <form [formGroup]="newPost">
-    <label for="postTitle">Title</label>
-    <input id="postTitle" type="text" formControlName="postTittle">
 
-    <label for="postContent">Content:</label>
+    <span class="ui-float-label">
+        <input id="postTitle" type="text" size="30" [ngStyle]="{'width':'100%', 'margin':'10px 0'}" formControlName="postTittle" pInputText> 
+        <label for="postTitle">Title</label>
+    </span>
+
+
     <!--  <input id="postContent" type="text" formControlName="postContent"> -->
-    <textarea id="postContent" type="text" formControlName="postContent" placeholder="Describe yourself here..."></textarea>
+    <textarea id="postContent" [rows]="10" [cols]="40" [ngStyle]="{'width':'100%'}" pInputTextarea autoResize="autoResize"
+        type="text" formControlName="postContent" placeholder="Describe yourself here..."></textarea>
 
     <div><p>{{error}}</p></div>
     <br>
-    <button (click)="back()">Cancel</button>
-    <button (click)="save()">Save</button>  
+    <button pButton type="button" label="Cancel" [ngStyle]="{'margin':'10px'}" class="ui-button-raised ui-button-secondary"(click)="back()"></button>
+    <button pButton type="button" label="Save" class="ui-button-raised ui-button-success" (click)="save()"></button>  
 </form>
 
 <p>** CAN-DEACTIVATED: ON **</p>
-
-

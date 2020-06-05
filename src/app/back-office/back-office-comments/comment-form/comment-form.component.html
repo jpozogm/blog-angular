@@ -1,9 +1,17 @@
-<p>comment-form works!</p>
+<div class="card__comments box-shadow">
+    <form [formGroup]="editComment">
+        <p-fieldset legend="{{commentDetails?.commentAuthorNickName}}">
+            
+            <input id="commentContent" type="text" placeholder="Escribe tu comentario..." 
+            [ngStyle]="{'width':'100%', 'margin':'10px 0'}" pInputText formControlName="commentContent">
+            
+            <div><p>{{error}}</p></div>
+            
+            <button pButton type="button" [ngStyle]="{'margin':'10px'}" label="Save" class="ui-button-raised ui-button-success" (click)="saveComment(editComment.value)"></button> 
+            <button pButton type="button" label="Reset" class="ui-button-raised ui-button-warning" (click)="resetComment()"></button>
+        </p-fieldset>
+    </form>
+</div>
 
-<form [formGroup]="editComment">
-    <input id="commentContent" type="text" placeholder="Escribe tu comentario..." formControlName="commentContent">
-    <div><p>{{error}}</p></div>
-    <button (click)="saveComment(editComment.value)">Save</button> 
-    <button (click)="resetComment()">Reset</button>
-</form>
+
 

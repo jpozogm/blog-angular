@@ -21,7 +21,7 @@ export class LoginService {
     );
   }
 
-  signUp(user: User): Observable<User> { /* ++++ */
+  signUp(user: User): Observable<User> {
     return this.proxy.signUp(user).pipe(
       map(userDTO => this.userDTOToModel(userDTO))
     );

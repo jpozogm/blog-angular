@@ -29,7 +29,7 @@ export class CommonValidator {
         };
     }
 
-     static userTaken(service: LoginService){
+    static userTaken(service: LoginService){
         return(control: FormControl) => {
             return new Promise((resolve) => {
                 service.checkUserByname(control.value).subscribe(
@@ -43,28 +43,6 @@ export class CommonValidator {
             });
         };
     }
-
-
-/*     static userTaken(service: LoginService) {
-        return(control: FormControl) => {
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    let userExist;
-                    service.checkUserByname(control.value).subscribe(
-                        res => { userExist = res; },
-                        (error) => { resolve(null); }
-                    );
-                    if (userExist) {
-                        resolve({ userTaken: true });
-                    } else {
-                        resolve(null);
-                    }
-                }, 2000);
-
-            });
-
-        };
-    } */
 
 }
 

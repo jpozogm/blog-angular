@@ -1,4 +1,7 @@
 
+    <button (click)="showError('error', 'test')">Error</button>
+    <hr>
+
 <form [formGroup]="signInLogin" autocomplete="off">
     <label for="username"
     [class.invalid]="signInLogin.get('username').touched && signInLogin.get('username').invalid"
@@ -6,8 +9,7 @@
 
     <input id="username" type="text" formControlName="username"
     [class.in-invalid]="signInLogin.get('username').touched && signInLogin.get('username').invalid"
-    [class.in-valid]="signInLogin.get('username').touched && signInLogin.get('username').valid"> 
-
+    [class.in-valid]="signInLogin.get('username').touched && signInLogin.get('username').valid">   
 
     <label for="password"
     [class.invalid]="signInLogin.get('password').touched && signInLogin.get('password').invalid"
@@ -17,8 +19,12 @@
     [class.in-invalid]="signInLogin.get('password').touched && signInLogin.get('password').invalid"
     [class.in-valid]="signInLogin.get('password').touched && signInLogin.get('password').valid"> 
 
-
     <button (click)="signIn(signInLogin.value)" [disabled]="!signInLogin.valid">Sign In</button>
+
+    <div>
+        <app-error-messages [control]="signInLogin.get('username')" [customErrors]="customErrorsMessages" class="invalid"></app-error-messages>
+        <app-error-messages [control]="signInLogin.get('password')" [customErrors]="customErrorsMessages" class="invalid"></app-error-messages>
+    </div>
 </form>
 
 <hr>
@@ -32,30 +38,11 @@
     [class.in-invalid]="signUpLogin.get('user').touched && signUpLogin.get('user').invalid"
     [class.in-valid]="signUpLogin.get('user').touched && signUpLogin.get('user').valid"> 
 
-    <div *ngIf="signUpLogin.get('user').touched && signUpLogin.get('user').invalid">
 
-        <span *ngIf="signUpLogin.get('user').hasError('required')"
-        [class.invalid]="signUpLogin.get('user').touched && signUpLogin.get('user').invalid"
-        [class.valid]="signUpLogin.get('user').touched && signUpLogin.get('user').valid">
-            Username is required
-        </span>
-
-        <span *ngIf="signUpLogin.get('user').hasError('startWithNumber')"
-        [class.invalid]="signUpLogin.get('user').touched && signUpLogin.get('user').invalid"
-        [class.valid]="signUpLogin.get('user').touched && signUpLogin.get('user').valid">
-            Username can´t start with number
-        </span>
-
-        <span *ngIf="signUpLogin.get('user').hasError('userTaken')"
-        [class.invalid]="signUpLogin.get('user').touched && signUpLogin.get('user').invalid"
-        [class.valid]="signUpLogin.get('user').touched && signUpLogin.get('user').valid">
-            Username is taken
-        </span>
+    <div>
+        <app-error-messages [control]="signUpLogin.get('user')" [customErrors]="customErrorsMessages" class="invalid"></app-error-messages>
     </div>
 
-    <div *ngIf="signUpLogin.get('user').untouched || signUpLogin.get('user').valid">
-        <span style="color:white;">-</span>
-    </div>
 
     <label for="newPassword"
     [class.invalid]="signUpLogin.get('password').touched && signUpLogin.get('password').invalid"
@@ -65,24 +52,10 @@
     [class.in-invalid]="signUpLogin.get('password').touched && signUpLogin.get('password').invalid"
     [class.in-valid]="signUpLogin.get('password').touched && signUpLogin.get('password').valid"> 
 
-
-    <div *ngIf="signUpLogin.get('password').touched">
-        <span *ngIf="signUpLogin.get('password').hasError('required')"
-        [class.invalid]="signUpLogin.get('password').touched && signUpLogin.get('password').invalid"
-        [class.valid]="signUpLogin.get('password').touched && signUpLogin.get('password').valid">
-            Password is required
-        </span>
-
-        <span *ngIf="signUpLogin.get('password').hasError('minlength')"
-        [class.invalid]="signUpLogin.get('password').touched && signUpLogin.get('password').invalid"
-        [class.valid]="signUpLogin.get('password').touched && signUpLogin.get('password').valid">
-            Min 4 characters
-        </span>
+    <div>
+        <app-error-messages [control]="signUpLogin.get('password')" [customErrors]="customErrorsMessages" class="invalid"></app-error-messages>
     </div>
 
-    <div *ngIf="signUpLogin.get('password').untouched || signUpLogin.get('password').valid">
-        <span style="color:white;">-</span>
-    </div>
 
     <label for="repeatPassword"
     [class.invalid]="signUpLogin.get('repeatPassword').touched && signUpLogin.get('repeatPassword').invalid"
@@ -96,25 +69,9 @@
         <use [attr.xlink:href]="show"></use>
     </svg>
 
-    <div *ngIf="signUpLogin.get('repeatPassword').touched && !signUpLogin.get('repeatPassword').valid">
-
-        <span *ngIf="signUpLogin.get('repeatPassword').hasError('required')"
-        [class.invalid]="signUpLogin.get('repeatPassword').touched && signUpLogin.get('repeatPassword').invalid"
-        [class.valid]="signUpLogin.get('repeatPassword').touched && signUpLogin.get('repeatPassword').valid">
-            Repeat Password is required
-        </span>
-
-        <span *ngIf="signUpLogin?.get('repeatPassword').hasError('compareValidator')"
-        [class.invalid]="signUpLogin.get('repeatPassword').touched && signUpLogin.get('repeatPassword').invalid"
-        [class.valid]="signUpLogin.get('repeatPassword').touched && signUpLogin.get('repeatPassword').valid">
-            Repeat Password must be equal to Password
-        </span>
+    <div>
+        <app-error-messages [control]="signUpLogin.get('repeatPassword')" [customErrors]="customErrorsMessages" class="invalid"></app-error-messages>
     </div>
-
-    <div *ngIf="signUpLogin.get('repeatPassword').untouched || signUpLogin.get('repeatPassword').valid">
-        <span style="color:white;">-</span>
-    </div>
-
 
     <label for="role">Role:</label>
     <select id="role" formControlName="role"
@@ -124,6 +81,10 @@
         <option selected value="publisher">Publisher</option>
         <option value="admin">Admin</option>
     </select>
+
+    <div>
+        <app-error-messages [control]="signUpLogin.get('role')" [customErrors]="customErrorsMessages" class="invalid"></app-error-messages>
+    </div>
 
     <div *ngIf="signUpLogin.get('role').touched && !signUpLogin.get('role').valid">
         <span *ngIf="signUpLogin.get('role').hasError('required')">

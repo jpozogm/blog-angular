@@ -1,4 +1,9 @@
-<button (click)="newPost()">New Post</button>
-<hr>
+<p-table>
+    <ng-template pTemplate="caption">
+        List of Posts
+    </ng-template>
+</p-table>
+
 <app-post-list></app-post-list>
-<button (click)="newPost()">New Post</button>
+
+<button pButton type="button" [ngStyle]="{'width':'100%'}" label="New Post" class="ui-button-raised ui-button-info" (click)="newPost()"></button>

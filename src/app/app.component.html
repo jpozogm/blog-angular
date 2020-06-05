@@ -1,5 +1,16 @@
-<app-header></app-header>
+<p-toast position="center" [(value)]="msgs" life="2000">
+    {{msgs}}
+</p-toast>
 
-<hr>
+<p-messages [(value)]="msgs">
+    {{msgs}}
+<p-messages >
 
-<router-outlet></router-outlet>
+
+<div class="w-80">
+    <app-header></app-header>
+
+    <hr>
+
+    <router-outlet></router-outlet>
+</div>
