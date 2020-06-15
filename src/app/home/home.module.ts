@@ -1,7 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AccordionModule } from 'primeng/accordion';
+import { SharedModule } from '../shared/shared.module';
+import { CommentsCardComponent } from './home-comments/comments-card/comments-card.component';
+import { CommentsListComponent } from './home-comments/comments-list/comments-list.component';
 import { HomeLayoutComponent } from './home-layout/home-layout.component';
 import { HomePostsComponent } from './home-posts/home-posts.component';
 import { PostCardComponent } from './home-posts/post-card/post-card.component';
@@ -22,10 +26,14 @@ const ROUTES: Routes = [
     PostListComponent,
     PostCardComponent,
     PostDetailsComponent,
-    HomeLayoutComponent],
+    HomeLayoutComponent,
+    CommentsListComponent,
+    CommentsCardComponent],
   imports: [
     CommonModule,
     HttpClientModule,
+    SharedModule,
+    AccordionModule,
     RouterModule.forChild(ROUTES)
   ],
   exports: [
@@ -34,6 +42,9 @@ const ROUTES: Routes = [
     PostListComponent,
     PostCardComponent,
     PostDetailsComponent,
-    HomeLayoutComponent]
+    HomeLayoutComponent,
+    CommentsListComponent,
+    CommentsCardComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class HomeModule { }

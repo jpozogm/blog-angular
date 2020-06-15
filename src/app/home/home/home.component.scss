@@ -1,0 +1,21 @@
+.ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active:hover a {
+    background-color: rgb(58, 10, 10);
+    border: 1px solid #007ad9;
+    color: #ffffff;
+}
+
+.ui-accordion .ui-accordion-header a:focus {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: 0 0 0 0.2em red;
+}
+
+.acordion{
+    margin-top: 60px;
+}
+
+.acordion__title{
+    color: #fcf9f7;
+    font-size: 35px;
+    font-style: italic;
+}

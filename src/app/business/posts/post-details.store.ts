@@ -42,7 +42,7 @@ export class PostsDetailsStoreService extends Store<Post>{
             const newComments = [...post.postComments, newComment];
             const newPost = {...post, postComments: newComments };
             this.store(newPost);
-        }) ).toPromise();
+        })).toPromise();
     }
 
     deleteComment$(id: string): Promise<Post> {

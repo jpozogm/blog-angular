@@ -1,0 +1,112 @@
+.template + a {
+    text-decoration: none !important;
+}
+
+.carousel-demo .ui-carousel .ui-carousel-content .ui-carousel-item .car-details > .p-grid {
+    border: 1px solid #b3c2ca;
+    border-radius: 3px;
+    margin: 0.3em;
+    text-align: center;
+    padding: 2em 0 2.25em 0;
+}
+.carousel-demo .ui-carousel .ui-carousel-content .ui-carousel-item .car-data .car-title {
+    font-weight: 700;
+    font-size: 20px;
+    margin-top: 24px;
+}
+.carousel-demo .ui-carousel .ui-carousel-content .ui-carousel-item .car-data .car-subtitle {
+    margin: 0.25em 0 2em 0;
+}
+.carousel-demo .ui-carousel .ui-carousel-content .ui-carousel-item .car-data button {
+    margin-left: 0.5em;
+}
+.carousel-demo .ui-carousel .ui-carousel-content .ui-carousel-item .car-data button:first-child {
+    margin-left: 0;
+}
+.carousel-demo .ui-carousel.custom-carousel .ui-carousel-dot-icon {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+}
+.carousel-demo .ui-carousel.ui-carousel-horizontal .ui-carousel-content .ui-carousel-item.ui-carousel-item-start .car-details > .p-grid {
+    margin-left: 0.6em;
+}
+.carousel-demo .ui-carousel.ui-carousel-horizontal .ui-carousel-content .ui-carousel-item.ui-carousel-item-end .car-details > .p-grid {
+    margin-right: 0.6em;
+}
+
+.ui-carousel-items-content, .ui-carousel-items-content[style] {
+    height: 255px !important;; 
+}
+.container {
+    position: relative;
+    width: 50%;  
+}
+  
+.image {
+    margin-right: 15px;
+    border-radius: 50%;
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    opacity: 1;
+    transition: .5s ease;
+}
+
+.post-details:hover .post-subtitle{
+    color: #007ad9;
+}
+
+.middle {
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%)
+}
+  
+.post-details:hover .image {
+    opacity: 0.3;
+    filter: grayscale(100%);
+}
+  
+.post-details:hover .middle {
+    opacity: 1;
+}
+  
+.text {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    margin-left: 118px;
+    line-height: 200px;
+    text-align: center;
+    background-color: rgba(58, 10, 10, 0.3);
+    color: white;
+    font-size: 28px;
+    padding: 16px 32px;
+    font-style: italic;
+}
+
+.post-title{
+    font-size: 35px;
+    font-family: times;
+    font-weight: 700;
+    color: #40403a;
+    overflow-wrap: break-word;
+}
+
+.post-subtitle{
+    color: #bdbdbd;;
+    font-style: italic;
+}
+
+.post-author{
+    color: black;
+    font-style: italic;
+    text-align: right;
+    font-size: 14px;
+}
+

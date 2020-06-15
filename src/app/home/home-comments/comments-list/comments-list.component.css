@@ -1,0 +1,13 @@
+.slot{
+    display: flex;
+}
+
+
+.button {
+    --radh-button-background-color: rgb(35, 47, 62);
+    --radh-button-color: white;
+  }
+  
+.test .comments{
+    background-color: red;
+}

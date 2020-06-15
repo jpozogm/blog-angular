@@ -26,31 +26,13 @@ import { PostListComponent } from './back-office-posts/post-list/post-list.compo
 import { BackOfficeComponent } from './back-office/back-office.component';
 
 
-const ROUTES: Routes = [
-  {
-    path: '', canActivate: [AuthService],
-    component: BackOfficeLayoutComponent,
-    children: [
-      {
-        path: 'backOffice',
-        component: BackOfficeComponent
-      },
-      {
-        path: 'backOffice/post/:id',
-        component: PostDetailsComponent
-      },
-      {
-      path: 'newPost',
-      canDeactivate: [ConfirmService],
-      component: NewPostComponent
-      },
-      {
-        path: 'backOffice/comment/:id',
-        component: CommentFormComponent
-      },
-    ]
-  }
 
+const ROUTES: Routes = [
+  {path: '', canActivate: [AuthService], component: BackOfficeLayoutComponent},
+  {path: 'backOffice', canActivate: [AuthService], component: BackOfficeComponent},
+  {path: 'backOffice/post/:id', component: PostDetailsComponent},
+  {path: 'newPost', canDeactivate: [ConfirmService], component: NewPostComponent},
+  {path: 'backOffice/comment/:id', component: CommentFormComponent},
 ];
 
 @NgModule({
@@ -66,6 +48,7 @@ const ROUTES: Routes = [
     BackOfficeCommentsComponent,
     NewCommentComponent,
     CommentFormComponent],
+
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -80,6 +63,7 @@ const ROUTES: Routes = [
     TableModule,
     CardModule,
     FieldsetModule,
+
 
 
     RouterModule.forChild(ROUTES),

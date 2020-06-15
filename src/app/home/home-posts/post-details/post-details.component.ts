@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { PostProxyService } from 'src/app/business/posts/post-proxy.service';
 import { PostService } from 'src/app/business/posts/post.service';
 import { Post } from 'src/app/business/posts/type/post';
 
@@ -18,16 +17,16 @@ export class PostDetailsComponent implements OnInit, OnDestroy{
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private PostProxyService: PostProxyService,
-    private PostService: PostService
+    private postService: PostService
      ) { }
 
   ngOnInit(): void {
 
     this.subscription = this.activatedRoute.params.subscribe((params) => {
-      this.PostService.getPostByID(params.id).subscribe((data) => {
-        this.post = data; console.log(this.post); });
+      this.postService.getPostByID(params.id).subscribe((data) => {
+        this.post = data; });
     });
+    window.scroll(100, 0);
   }
 
   backHome(){

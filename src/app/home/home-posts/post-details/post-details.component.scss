@@ -1,4 +1,30 @@
+
+.button {
+  --radh-button-background-color: rgb(35, 47, 62);
+  --radh-button-color: white;
+}
+
 .card{
     display: flex;
     border: 1px solid red;
+}
+
+.fadeIn{
+    opacity: 1;
+    animation: fade 0.35s ease-in;   
+  }
+  
+  
+  @keyframes fade {
+    
+    0%,
+    25% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+  
+    100% {
+      opacity: 1;
+      transform: none;
+    }
 }

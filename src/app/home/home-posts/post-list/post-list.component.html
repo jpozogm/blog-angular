@@ -1,1 +1,4 @@
-<app-post-card *ngFor="let post of ( publicPosts$ | async ) let i = index" [post]="post"></app-post-card>
+
+<div class="grid">  
+    <app-post-card class="section1" *ngFor="let post of ( publicPosts$ | async ) let i = index" [post]="post"></app-post-card>
+</div> 

@@ -1,11 +1,21 @@
 
 <div [ngStyle]="{'margin-top':'30px'}">
-<form [formGroup]="newComment">
-    <span class="ui-float-label">
-        <input id="commentContent" type="text" size="30" pInputText formControlName="commentContent">
-        <label for="commentContent">Escribe un comentario...</label>
-        <button pButton type="button" label="Save" class="ui-button-raised ui-button-secondary" (click)="saveNewComment()"></button> 
-    </span>
-    <div><p>{{error}}</p></div>
-</form>
+    <form [formGroup]="newComment" [ngStyle]="{'height':'100px'}">
+        <span class="ui-float-label">
+            <input id="commentContent" type="text" size="30" pInputText formControlName="commentContent">
+            <label for="commentContent">Escribe un comentario...</label>
+            <button pButton type="button" label="Save" class="ui-button-raised ui-button-secondary" [disabled]="!newComment.valid" (click)="saveNewComment()"></button> 
+        </span>
+
+        <div *ngIf="error">
+            <p class="invalid">ⓘ {{error}}</p>
+        </div>
+
+        <div *ngIf="!error">
+            <p class="transparent">-</p>
+        </div>
+
+        <app-error-messages [control]="newComment.get('commentContent')" [customErrors]="commentErrorsMessages" class="invalid"></app-error-messages>
+
+    </form>
 </div>

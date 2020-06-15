@@ -1,0 +1,43 @@
+
+
+<p-carousel [value]="(publicPosts$ | async )" orientation="vertical" [style]="{'max-width':'80%', 'margin-top':'2em'}" verticalViewPortHeight="330px" [numVisible]="1" [numScroll]="1">
+
+    <ng-template let-post pTemplate="item" class="template">
+    
+        <a [routerLink]="['/post', post._id]">
+            <div class="post-details">
+                <div class="p-grid p-nogutter flex">
+
+                    <div class="p-col-12">
+                        <div class="container">
+                            <img class="image" title="{{post.postAuthorName}}" src="http://localhost:3000/images/{{post.postAuthorName}}.jpg"/>
+                            <div class="middle">
+                                <div class="text">{{post.postAuthorName}}</div>
+                              </div>
+                        </div>
+                    </div>
+
+                    <div class="p-col-12 post-data">
+                        <div class="post-title">
+                            <p class="subtitle-text" [class.more-blue]="post.postTittle.length >= 120">
+                                {{ post.postTittle | slice:0:50}} </p>
+                        </div>
+                                
+                        <div class="post-subtitle">
+                        <p class="subtitle-text" [class.more-blue]="post.postContent.length >= 220" class="details__description">
+                            {{ post.postContent | slice:0:220}} </p>
+
+                        <div class="post-author"> {{post.postAuthorName}}</div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </a>
+    </ng-template>
+
+</p-carousel>
+
+
+

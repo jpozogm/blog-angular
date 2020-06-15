@@ -1,8 +1,9 @@
+
+
 <a [routerLink]="['/post', post._id]">
-    <div class="border">
-        <p>{{post?.postDate | date: 'd/MMM/yyyy, h:mm a'}}</p>
-        <p class="card__author-name">Author: {{post?.postAuthorName }}</p>
-        <h2>{{post?.postTittle | uppercase}}</h2>
-        <p>{{post?.postContent | slice:0:300}}</p> 
-    </div>
+    <blog-card heading= "{{post?.postTittle | slice:0:40}}" author= "{{post?.postAuthorName }}, {{post?.postDate | date: 'd/MMM/yyyy, h:mm a'}}" 
+    content="{{post?.postContent | slice:0:160}}...">
+    </blog-card>
 </a>
+
+

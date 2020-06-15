@@ -1,28 +1,18 @@
 
 
-<div class="">
-
-    <div class="border">
-        <div>
-            <p>{{post?.postDate | date: 'd/MMM/yyyy, h:mm a'}}</p>
-            <p>{{post?.postAuthorName }}</p>
-        </div>
-
-        <div>
-            <h2>{{post?.postTittle | uppercase}}</h2>
-            <p>{{post?.postContent}}</p>
-        </div>  
-    </div>
-
+<div>
+    <blog-post-detail 
+        heading= "{{post?.postTittle | slice:0:42}}" 
+        content="{{post?.postContent}}"
+        footer= "{{post?.postAuthorName }}, {{post?.postDate | date: 'd/MMM/yyyy, h:mm a'}}">
+    </blog-post-detail>
 
     <div *ngFor="let comment of post?.postComments">
 
-        <hr> 
-        {{comment?.commentAuthorNickName}}
-        <br>
-        {{comment?.commentContent}}
+        <blog-post-comment author= "{{comment?.commentAuthorNickName}}" 
+        content="{{comment?.commentContent}}"></blog-post-comment>
+
     </div>
-
-    <button (click)="backHome()">Back Home</button>
-
+    <blog-button class ="button fadeIn" (click)="backHome()" text="Back Home"></blog-button>
 </div>
+

@@ -1,2 +1,36 @@
 
 <app-post-list></app-post-list>
+
+<div style="display: flex;">
+    <blog-holy heading="Be part of our community">
+        <div slot="header"><app-comments-list></app-comments-list></div> 
+        
+        <div slot="nav">
+            <div style="position:relative;">
+                <iframe src="assets/gifs/tellUs.gif" width="354" height="480" frameBorder="0" class="test giphy-embed" 
+                allowFullScreen></iframe>
+                <a [routerLink]="['/login']" style="position:absolute; top:0; left:0; display:inline-block; width:285px; height:500px; z-index:5;"></a>
+            </div>
+        </div>
+
+        <div slot="section"><app-carousel></app-carousel></div>
+  </blog-holy>
+</div>
+      
+    <blog-landing-info heading="What sets our website different">
+        <div slot="content" class="acordion">
+            <p class="acordion__title">No matter where you are in the process, we’d love to read you</p>
+            <p-accordion>
+                <p-accordionTab header="No matter where you are in the process" [selected]="true">
+                    The creative process is a model and it very certainly works different for each person. Yet, it can be a starting point to experiment with your very own creative process. The questions is that our community can help you to discover what works for you and we urge you to come up with your own reflections to consciously design for each step. In one way, the "Gym" is our way to experiment with the creative process. 
+                </p-accordionTab>
+                <p-accordionTab header="We’d love to read you">
+                    When you experience life through the eyes of another, you encounter diverse angles on life’s most common situations. Talented authors will naturally inspire empathy for their characters, and empathizing with viewpoints different from your own can feel uncomfortable. Extremely uncomfortable. While reading doesn’t mean that you’ll agree with different perspectives, it does offer you the opportunity to understand them.
+                </p-accordionTab>
+            </p-accordion>
+        </div>   
+    </blog-landing-info>
+
+<app-footer></app-footer>
+
+

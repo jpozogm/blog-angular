@@ -2,3 +2,29 @@
     display: flex;
     border: 1px solid red;
 }
+
+.fieldset{
+    margin-bottom: 25px;
+}
+
+.img{
+    margin: -7px 5px 0 0;
+    object-fit: cover;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin: 2px solid rgba(35, 47, 62, 0.4);;
+}
+
+.p-header{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.comment-container{
+    height: 53px;
+}
+
+.comment-container img{
+    margin: -35px 5px 0 0;
+}

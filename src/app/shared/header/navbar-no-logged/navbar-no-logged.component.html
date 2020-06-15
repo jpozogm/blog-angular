@@ -1,14 +1,13 @@
 
-<div>
-    <p> Blog with
-        <svg alt="angularIco" class="angularIco">
-            <use xlink:href="../../../assets/svg/sprite.svg#angularIco"></use>
-        </svg>
-    </p>
-</div>
+<blog-navbar>
+    
+    <div slot="navbar__items">
+        <div class="navbar__btns">
+            <a [routerLink] = "['login']" class="nav__item"><blog-navbar-btn text="LogIn" (click)="scrollUp()"></blog-navbar-btn> </a>
+            <a [routerLink] = "['home']" class="nav__item"><blog-navbar-btn text="Home" (click)="scrollUp()"></blog-navbar-btn> </a>
+            <a [routerLink] = "['backOffice']" class="nav__item"><blog-navbar-btn text="Back Office" (click)="scrollUp()"></blog-navbar-btn> </a>
+        </div>
+    </div> 
 
-<nav class="nav">
-    <a [routerLink] = "['login']" class="nav__item">LogIn | </a>
-    <a [routerLink] = "['home']" class="nav__item">Home | </a>
-    <a [routerLink] = "['backOffice']" class="nav__item">BackOffice | </a> 
-</nav>
+</blog-navbar>
+

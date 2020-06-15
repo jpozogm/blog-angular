@@ -1,5 +1,30 @@
-<p>|| User: {{tokenInfo?.body.user}} as role {{tokenInfo?.body.role}} || </p>
-<nav class="nav">
-    <a [routerLink] = "['login']" class="nav__item" (click)="logOut()">LogOut | </a>
-    <a [routerLink] = "['backOffice']" class="nav__item">BackOffice | </a> 
-</nav>
+
+
+
+<div class="nav" *ngIf="!dropDown">
+
+    <blog-navbar>      
+        <div slot="navbar__items">
+            <div class="navbar__btns">
+                    <a [routerLink] = "['backOffice']" class="nav__item nav__item--menu" (click)="openMenu()">
+                        <blog-navbar-btn text=" User {{tokenInfo?.body.user}} as role {{tokenInfo?.body.role}}"></blog-navbar-btn> 
+                    </a>
+            </div>
+        </div> 
+    </blog-navbar>
+
+</div>
+
+<div class="nav" *ngIf="dropDown">
+
+    <blog-navbar>   
+        <div slot="navbar__items">
+            <div class="navbar__btns">
+                <a [routerLink] = "['login']" class="nav__item nav__item--logOut" (click)="logOut()"><blog-navbar-btn text="Log Out"></blog-navbar-btn> </a>
+                <a class="nav__item nav__item--menu" (click)="openMenu()"><blog-navbar-btn text=" Cancel"></blog-navbar-btn> </a>
+                <img class="img" title="{{tokenInfo?.body.user}}" src="http://localhost:3000/images/{{tokenInfo?.body.user}}.jpg"/>
+            </div>
+        </div> 
+
+    </blog-navbar>
+</div>

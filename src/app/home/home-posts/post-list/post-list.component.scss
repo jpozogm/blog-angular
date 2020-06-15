@@ -1,1 +1,15 @@
 
+.grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 370px));
+    justify-items: stretch;
+    justify-content: space-evenly; 
+    padding: 10px 20px 10px 90px;
+    gap: 20px;
+}
+
+.test{
+    width: 254px; 
+    height: 480px;
+    z-index: 10;
+}

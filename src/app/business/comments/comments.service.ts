@@ -13,6 +13,18 @@ export class CommentService {
 
   constructor(private proxy: CommentsProxyService) { }
 
+  getComments(): Observable<Comment[]> {
+      return this.proxy.getComments().pipe(
+        map(CommentsDTO => {
+          let comments: Comment[] = [];
+          CommentsDTO.map(CommentsDTO => {
+            comments = [...comments, this.DTOToModel(CommentsDTO)];
+        });
+          return comments;
+        })
+      );
+    }
+
 
   getCommentByID(id: string): Observable<Comment> {
     return this.proxy.getCommentByID(id).pipe(

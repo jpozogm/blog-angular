@@ -28,4 +28,8 @@ export class PostListComponent implements OnInit {
   showpost(id){
     this.router.navigate([`home/${id}`]);
   }
+
+  routerLink(){
+    console.log('hello');
+  }
 }

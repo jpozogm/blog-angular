@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
+import { tap } from 'rxjs/operators';
+import { Comment } from '../comments/type/comment';
 import { PostsStoreService } from '../posts/post.store';
-import { Post } from '../posts/type/post';
 import { Store } from '../store';
 import { CommentService } from './comments.service';
-import { Comment } from './type/comment';
 
 @Injectable({providedIn: 'root'})
 
@@ -15,9 +15,13 @@ export class CommentsStoreService extends Store<Comment[]>{
         super();
     }
 
-    private searchIndexPost(posts: Post[], postId: string): number {
-        return posts.findIndex(item => item._id === postId);
+    init(): Promise<Comment[]> {
+        if (this.get()) { return; }
+        return this.service.getComments().pipe(
+            tap(comments => {this.store(comments); })
+        ).toPromise();
     }
+
 
     private searchIndexComments(comments: Comment[], commentId: string): number {
         return comments.findIndex(item => item._id === commentId);

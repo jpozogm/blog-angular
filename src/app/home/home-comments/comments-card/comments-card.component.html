@@ -1,0 +1,16 @@
+<a [routerLink]="['/post', comment.commentsPostId[0]]" (click)="scrollUp($event)">
+ 
+    <div class="card">
+        <div class="card__author">
+            <p class="author"></p>
+        </div>
+
+        <div class="card__content">
+          <h3 class="content"></h3>
+        </div>
+    </div>
+
+    <blog-comments-card author= "{{comment?.commentAuthorNickName | slice:0:18 }}" content= "{{comment?.commentContent | slice:0:18 }}..."></blog-comments-card>
+</a>
+
+

@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import * as jwt_decode from 'jwt-decode';
 import { Observable, Subscription } from 'rxjs';
 import { CommentService } from 'src/app/business/comments/comments.service';
+import { NotificationsBusService } from 'src/app/business/notifications/notifications-bus.service';
 import { PostsDetailsStoreService } from 'src/app/business/posts/post-details.store';
 import { PostsStoreService } from 'src/app/business/posts/post.store';
 import { Post } from 'src/app/business/posts/type/post';
@@ -33,6 +34,7 @@ export class PostDetailsComponent implements OnInit{
     private commentService: CommentService,
     private storePostDetail: PostsDetailsStoreService,
     private storePost: PostsStoreService,
+    private notificationsBus: NotificationsBusService
   ) { }
 
   ngOnInit(): void {
@@ -47,8 +49,9 @@ export class PostDetailsComponent implements OnInit{
 
     this.token = localStorage.getItem('token');
     this.tokenInfo = jwt_decode(this.token);
-  }
 
+    window.scroll(100, 0);
+  }
 
   editPost(){
     this.editPostBtn = !this.editPostBtn;
@@ -56,11 +59,13 @@ export class PostDetailsComponent implements OnInit{
 
   deletePost(){
     this.storePost.deletePost$(this.postID);
-    window.location.href = `/backOffice`;
+    this.router.navigate(['backOffice']);
+    this.notificationsBus.showWarn('Your Post has been deleted correctly! ♡', 'Deleted: ');
   }
 
   deleteComment(id){
     this.storePostDetail.deleteComment$(id);
+    this.notificationsBus.showWarn('Your Comment has been deleted correctly! ♡', 'Deleted: ');
   }
 
   backBackOffice(){
@@ -70,7 +75,5 @@ export class PostDetailsComponent implements OnInit{
   updateComment$(id: string, comment: Comment){
     this.storePostDetail.updateComment$(id, comment);
   }
-
-
 
 }

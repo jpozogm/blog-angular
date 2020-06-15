@@ -1,7 +1,5 @@
 <h3>Create your new post</h3>
 
-
-
 <form [formGroup]="newPost">
 
     <span class="ui-float-label">
@@ -9,15 +7,37 @@
         <label for="postTitle">Title</label>
     </span>
 
+    <div *ngIf="error">
+        <p class="invalid">{{error}}</p>
+    </div>
+
+    <div *ngIf="!error">
+        <p class="transparent">-</p>
+    </div>
+
+    <div>
+        <app-error-messages [control]="newPost.get('postTittle')" [customErrors]="postErrorsMessages" class="invalid"></app-error-messages>
+    </div>
 
     <!--  <input id="postContent" type="text" formControlName="postContent"> -->
-    <textarea id="postContent" [rows]="10" [cols]="40" [ngStyle]="{'width':'100%'}" pInputTextarea autoResize="autoResize"
+    <textarea id="postContent" [rows]="10" [cols]="40" [ngStyle]="{'width':'100%', 'min-height':'500px'}" pInputTextarea autoResize="autoResize"
         type="text" formControlName="postContent" placeholder="Describe yourself here..."></textarea>
-
-    <div><p>{{error}}</p></div>
     <br>
+
+    <div *ngIf="error">
+        <p class="invalid">ⓘ {{error}}</p>
+    </div>
+
+    <div *ngIf="!error">
+        <p class="transparent">-</p>
+    </div>
+
+    <div>
+        <app-error-messages [control]="newPost.get('postContent')" [customErrors]="postErrorsMessages" class="invalid"></app-error-messages>
+    </div>
+
     <button pButton type="button" label="Cancel" [ngStyle]="{'margin':'10px'}" class="ui-button-raised ui-button-secondary"(click)="back()"></button>
-    <button pButton type="button" label="Save" class="ui-button-raised ui-button-success" (click)="save()"></button>  
+    <button pButton type="button" label="Save" class="ui-button-raised ui-button-success" [disabled]="!newPost.valid" (click)="save()"></button>  
 </form>
 
 <p>** CAN-DEACTIVATED: ON **</p>

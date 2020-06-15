@@ -1,13 +1,14 @@
 <!-- <app-post-card *ngFor="let post of ( privatePosts$ | async ) let i = index" [post]="post"></app-post-card>
  -->
 
-<p-table  [scrollable]="true" scrollHeight="500px"  [value]="( privatePosts$ | async )">
+<p-table [scrollable]="true" scrollHeight="500px"  class="table" [value]="( privatePosts$ | async )">
 
     <ng-template pTemplate="header">
         <tr>
             <th>Title</th>
             <th>Content</th>
             <th>Author</th>
+            <th>Comments</th>
             <th>Date</th>
         </tr>
     </ng-template>
@@ -16,7 +17,31 @@
         <tr>
             <td class="text-center"><a [routerLink]="['/backOffice/post', post?._id]">{{post?.postTittle | uppercase}}</a></td>
             <td class="text-center"><a [routerLink]="['/backOffice/post', post?._id]">{{post?.postContent | slice:0:95}}</a></td>
-            <td class="text-center"> <a [routerLink]="['/backOffice/post', post?._id]">{{post?.postAuthorName }}</a></td>
+            <td class="text-center"> 
+                
+                <a [routerLink]="['/backOffice/post', post?._id]" class="flex link">
+                    <div>
+                        <img class="img" class="img" title="{{post.postAuthorName}}" src="http://localhost:3000/images/{{post.postAuthorName}}.jpg"/>
+                    </div>
+                    <div>
+                        <p class="text-name">{{post?.postAuthorName }}</p>
+                    </div>
+                </a>
+            </td>
+
+            <td class="text-center">
+                <a [routerLink]="['/backOffice/post', post?._id]">
+                
+                    <div *ngIf="post?.postComments === undefined">
+                        0 comments
+                    </div>
+
+                    <div *ngIf="post?.postComments != undefined">
+                        {{post?.postComments.length}} comments
+                    </div>
+                </a>
+            </td>
+
             <td class="text-center"><a [routerLink]="['/backOffice/post', post?._id]">{{post?.postDate | date: 'd/MMM/yyyy, h:mm a'}}</a></td>
         </tr> 
     </ng-template>
@@ -25,5 +50,5 @@
 
 
 
-
+                   
 

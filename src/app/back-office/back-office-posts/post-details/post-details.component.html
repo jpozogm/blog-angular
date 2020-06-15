@@ -1,10 +1,18 @@
 <div class="box-shadow">
     <p-panel class="box-shadow">
         
-        <p-header class="flex-sb">
-            <div class="ui-helper-clearfix">
-                <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px"><p>{{(post$ | async)?.postDate | date: 'd/MMM/yyyy, h:mm a'}}</p></span>    
-                <p class="card__author-name">Author name: {{(post$ | async)?.postAuthorName }}</p>  
+        <p-header class="p-header flex-sb">
+            <div class="ui-helper-clearfix flex-sb">
+
+                <div>
+                    <img class="img" title="{{(post$ | async)?.postAuthorName}}" src="http://localhost:3000/images/{{(post$ | async)?.postAuthorName}}.jpg"/>
+                </div>
+
+                <div>
+                  <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px"><p>{{(post$ | async)?.postDate | date: 'd/MMM/yyyy, h:mm a'}}</p></span>    
+                  <p class="card__author-name">Author name: {{(post$ | async)?.postAuthorName }}</p> 
+                </div>
+ 
             </div>
 
             <div *ngIf="tokenInfo?.body._id === (post$ | async)?.user || tokenInfo?.body.role === 'admin'">
@@ -39,20 +47,41 @@
 </div>
 
 <div class="card__comments box-shadow">
-    <div *ngFor="let comment of (post$ | async)?.postComments; index as i" class="box-shadow border-radius"> 
 
-        <p-fieldset legend="{{comment?.commentAuthorNickName}}">
-            {{comment?.commentContent}}
+    <div *ngIf="(post$ | async)?.postComments.length === 0" class="fieldset">
+        <p-fieldset className="fieldset" legend="Whrite the first comment:">
+            <div class="comment-container flex-align">
+                <img class="img" title="{{tokenInfo?.body.user}}" src="http://localhost:3000/images/{{tokenInfo?.body.user}}.jpg"/>
+                <app-new-comment [id]="postID"></app-new-comment>
+            </div>
+        </p-fieldset>
+    </div>
 
-        <div *ngIf="tokenInfo?.body._id === comment?.userId || tokenInfo?.body.role === 'admin'">
-            <button [routerLink]="['/backOffice/comment', comment?._id]" [ngStyle]="{'margin':'10px'}" pButton type="button" label="Edit" class="ui-button-raised ui-button-success" (click)="editPost()"></button> 
-            <button pButton type="button" label="Delete" class="ui-button-raised ui-button-danger" (click)="deleteComment(comment?._id)"></button>
+    <div *ngIf="(post$ | async)?.postComments[0] != null" class="fieldset">
+
+        <div *ngFor="let comment of (post$ | async)?.postComments; index as i" class="box-shadow border-radius"> 
+
+            <p-fieldset legend="{{comment?.commentAuthorNickName}}">
+                <div class="flex-align">
+                    <img class="img" title="{{comment?.commentAuthorNickName}}" src="http://localhost:3000/images/{{comment?.commentAuthorNickName}}.jpg"/>
+                    <p>{{comment?.commentContent}}</p>
+                </div>
+
+                <div *ngIf="tokenInfo?.body._id === comment?.userId || tokenInfo?.body.role === 'admin'">
+                    <button [routerLink]="['/backOffice/comment', comment?._id]" [ngStyle]="{'margin':'10px'}" pButton type="button" label="Edit" class="ui-button-raised ui-button-success" (click)="editPost()"></button> 
+                    <button pButton type="button" label="Delete" class="ui-button-raised ui-button-danger" (click)="deleteComment(comment?._id)"></button>
+                </div>
+            </p-fieldset>
         </div>
+
+        <p-fieldset className="fieldset" legend="{{tokenInfo?.body.user}}">
+            <div class="comment-container flex-align">
+                <img class="img" title="{{tokenInfo?.body.user}}" src="http://localhost:3000/images/{{tokenInfo?.body.user}}.jpg"/>
+                <app-new-comment [id]="postID"></app-new-comment>
+            </div>
         </p-fieldset>
     </div>         
 </div>
-
-<app-new-comment [id]="postID"></app-new-comment>
 
 <button pButton type="button" [ngStyle]="{'width':'100%'}"  label="Back to Back Office" class="ui-button-info ui-button-raised" (click)="backBackOffice()"></button>
 

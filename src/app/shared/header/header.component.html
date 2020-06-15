@@ -1,2 +1,2 @@
-<app-navbar-no-logged *ngIf="isLoggued === false"></app-navbar-no-logged>
-<app-navbar-logged *ngIf="isLoggued === true"></app-navbar-logged>
+<app-navbar-no-logged class="navbar" [class.fixed]="scroll" *ngIf="isLoggued === false"></app-navbar-no-logged>
+<app-navbar-logged class="navbar" [class.fixed]="scroll"  *ngIf="isLoggued === true"></app-navbar-logged>

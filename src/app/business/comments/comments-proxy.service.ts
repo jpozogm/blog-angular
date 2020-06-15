@@ -14,6 +14,9 @@ export class CommentsProxyService {
 
   constructor(private httpClient: HttpClient) { }
 
+  getComments(): Observable<CommentDTO[]> {
+    return this.httpClient.get<CommentDTO[]>(`${environment.apiUrl}${environment.commentsEndpoint}`);
+  }
 
   getCommentByID(id: string): Observable<CommentDTO> {
     return this.httpClient.get<CommentDTO>(`${environment.apiUrl}${environment.commentsEndpoint}${id}`);

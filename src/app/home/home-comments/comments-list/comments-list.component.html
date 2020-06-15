@@ -1,0 +1,3 @@
+<blog-comments-container class="test">
+    <div slot="slot" class="slot"><app-comments-card  *ngFor="let comment of ( publicComments$| async ) let i = index" [comment]="comment" (clickOnComment)="scrollUp($event)"></app-comments-card></div>    
+</blog-comments-container>

@@ -5,7 +5,6 @@ import { Subscription } from 'rxjs';
 import { NotificationsBusService } from 'src/app/business/notifications/notifications-bus.service';
 import { LoginService } from 'src/app/business/users/login.service';
 import { CommonValidator } from 'src/app/common-validator';
-import { LoginProxyService } from '../../business/users/login-proxy.service';
 import { Token } from '../../business/users/types/token';
 import { User } from '../../business/users/types/user';
 
@@ -17,9 +16,8 @@ import { User } from '../../business/users/types/user';
 export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(
-    private router: Router,
+    public router: Router,
     private loginService: LoginService,
-    private loginproxyService: LoginProxyService,
     private notificationsBus: NotificationsBusService) {
       this.eye = '../../../assets/svg/sprite.svg#eye-open';
       this.eyeSlash = './assets/svg/sprite.svg#eye-hide';
@@ -42,6 +40,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   hidden = 'ocultar';
   passwordType = 'password';
   errors: any;
+  sign: boolean;
 
   customErrorsMessages = {};
 
@@ -68,18 +67,18 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
 
     this.customErrorsMessages = {
-      required: 'This field must not be empty',
-      minLength: 'Sorry, this field is too short',
-      userTaken: 'User is already taken',
-      startWithNumber: 'Username can´t start with number',
-      maxlength: 'Sorry, this field is too long',
-      compareValidator: 'Repeat Password must be equal to Password'
+      required: 'This field must not be empty.',
+      minLength: 'Sorry, this field is too short.',
+      userTaken: 'User is already taken.',
+      startWithNumber: 'Username can´t start with number.',
+      maxlength: 'Sorry, this field is too long.',
+      compareValidator: 'Repeat Password must be equal to Password.'
     };
+    this.sign = true;
+    window.scroll(100, 0);
+    document.getElementsByTagName('html')[0].style.overflow = 'hidden';
   }
 
-  showError(msg, sum){
-    this.notificationsBus.showError(msg, sum);
-  }
 
   signIn(form){
 
@@ -87,15 +86,18 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.token = data; console.log('data', data);
 
       if (data) {
-      localStorage.setItem('token', this.token.token);
-      localStorage.setItem('user', this.signInLogin.controls.username.value);
+        localStorage.setItem('token', this.token.token);
+        localStorage.setItem('user', this.signInLogin.controls.username.value);
 
-      this.router.navigate(['backOffice']);
-    } else {
-      return 'usuario incorrecto';
+        this.router.navigate(['backOffice']);
+      }
+    },
+    err => {
+      this.error = err.error.message;
+      this.notificationsBus.showError('Incorrect Username or Password', 'Error:');
     }
-    });
-  }
+);
+}
 
   signUp() {
     this.signUpSub = this.loginService.signUp(this.signUpLogin.value).subscribe((data) => {
@@ -108,10 +110,12 @@ export class LoginComponent implements OnInit, OnDestroy {
           password: this.signUpLogin.controls.password.value,
         };
         this.signIn(form);
+        this.notificationsBus.showSuccess('Your dates has been saved correctly! ♡', 'Welcome: ');
       }
       },
         err => {
           this.error = err.error.message;
+          this.notificationsBus.showError(' Incorrect User or Password', 'Error: ');
         },
       () => {
         console.log('Proceso completado');
@@ -119,7 +123,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     );
   }
 
-  seePassword() {
+seePassword() {
     if (this.passwordType === 'password') {
       this.passwordType = 'text';
       this.show = this.eyeSlash;
@@ -130,13 +134,19 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy() {
+
+ngOnDestroy() {
     if (this.signInSub) {
     this.signInSub.unsubscribe();
     }
     if (this.signUpSub) {
       this.signUpSub.unsubscribe();
-      }
+    }
+    document.getElementsByTagName('html')[0].style.overflow = 'auto';
   }
+
+changingSign(){
+  this.sign = !this.sign;
+}
 
 }

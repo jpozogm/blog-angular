@@ -1,10 +1,11 @@
 
 <div class="async-pending" *ngIf="control.pending"> Comprobando...</div>
 
-<div *ngIf="errorMessage!==null">
-    <ul>
-        <li>{{errorMessage}}</li>
-    </ul> 
+<div *ngIf="errorMessage!==null" class="ng-star-inserted">
+
+    <p><svg alt="angularIco" class="angularIco">
+        <use xlink:href="../../../assets/svg/sprite.svg#alert"></use>
+    </svg> {{errorMessage}}</p>
 </div>
 
 <div *ngIf="errorMessage===null">

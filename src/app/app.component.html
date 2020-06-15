@@ -1,16 +1,12 @@
-<p-toast position="center" [(value)]="msgs" life="2000">
-    {{msgs}}
-</p-toast>
+<p-messages [(value)]="msgs"
+[showTransitionOptions]="'800ms'" [hideTransitionOptions]="'1000ms'" class="p-messages" ></p-messages>
 
-<p-messages [(value)]="msgs">
-    {{msgs}}
-<p-messages >
+<blog-back-ground>
+    
+    <blog-layout>
+        <div slot="navbar">  <app-header [scroll]="scroll"></app-header> </div>
+        <div slot="section"> <router-outlet></router-outlet> </div> 
+    </blog-layout>
 
+</blog-back-ground>
 
-<div class="w-80">
-    <app-header></app-header>
-
-    <hr>
-
-    <router-outlet></router-outlet>
-</div>
