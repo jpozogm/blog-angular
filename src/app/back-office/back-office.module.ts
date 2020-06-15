@@ -10,6 +10,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { PanelModule } from 'primeng/panel';
 import { TableModule } from 'primeng/table';
+import { BackOfficeComponent } from '../back-office/back-office/back-office.component';
 import { AuthService } from '../business/auth.service';
 import { ConfirmService } from '../business/can-deactivated.service';
 import { SharedModule } from '../shared/shared.module';
@@ -23,7 +24,6 @@ import { PostCardComponent } from './back-office-posts/post-card/post-card.compo
 import { PostDetailsComponent } from './back-office-posts/post-details/post-details.component';
 import { PostFormComponent } from './back-office-posts/post-form/post-form.component';
 import { PostListComponent } from './back-office-posts/post-list/post-list.component';
-import { BackOfficeComponent } from './back-office/back-office.component';
 
 
 
